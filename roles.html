@@ -1,253 +1,219 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Досье: Роли - Legion Mafia</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-    :root {
-        --neon-red: #ff003c;
-        --neon-blue: #00f3ff;
-        --bg-color: #050505;
-        --panel-bg: rgba(20, 20, 20, 0.95);
-        --text-main: #e0e0e0;
-        --grid-color: rgba(0, 243, 255, 0.05);
-    }
+    <meta charset="UTF-8">
+    <title>Legion Mafia - Игровые Роли</title>
+    <style>
+        /* === КИБЕРПАНК СТИЛИ (CSS) - ЦИФРОВАЯ МАФИЯ === */
+        :root {
+            --background-color: #0d0d1a;
+            --text-color: #00ffc8;       /* Ярко-зеленый/бирюзовый */
+            --header-color: #ff007f;     /* Ярко-розовый/фуксия */
+            --accent-color: #00ffff;     /* Голубой акцент */
+            --warning-color: #ffcc00;
+            --font-family-cyb: 'Share Tech Mono', monospace, Arial, sans-serif;
+            --container-bg: #1a0a29;
+            --mafia-color: #ff004c;      /* Киберпанк-красный (Фуксия) */
+            --civilian-color: #00ffcc;   /* Киберпанк-синий/зеленый */
+        }
 
-    body {
-        font-family: 'Share Tech Mono', monospace;
-        background-color: var(--bg-color);
-        color: var(--text-main);
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        background-image: 
-            linear-gradient(var(--grid-color) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-        background-size: 30px 30px;
-        position: relative;
-        overflow-x: hidden;
-    }
+        body {
+            font-family: var(--font-family-cyb);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    /* PRELOADER STYLES (Общие) */
-    #preloader {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background-color: var(--bg-color); z-index: 9999;
-        display: flex; flex-direction: column; justify-content: center; align-items: center;
-        transition: opacity 0.5s ease; font-family: 'Orbitron', sans-serif;
-    }
-    .loading-text {
-        font-size: 1.5em; color: var(--neon-red); text-shadow: 0 0 5px var(--neon-red);
-        letter-spacing: 5px; animation: blink 1s step-end infinite;
-    }
-    @keyframes blink { 50% { opacity: 0; } }
-    
-    /* GLOBAL LAYOUT (Общие) */
-    .container {
-        max-width: 1400px;
-        margin: 0 auto;
-        background-color: var(--panel-bg);
-        border: 1px solid var(--neon-red);
-        box-shadow: 0 0 20px rgba(255, 0, 60, 0.15), inset 0 0 20px rgba(255, 0, 60, 0.05);
-        padding: 50px 30px;
-        position: relative;
-        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
-        opacity: 0;
-    }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px 20px;
+            background-color: var(--container-bg);
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            flex-grow: 1;
+        }
+        
+        /* === Шапка/Логотип === */
+        .header {
+            text-align: center;
+            border-bottom: 2px dashed var(--header-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
 
-    /* ANIMATIONS (Общие) */
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+        h1 {
+            font-size: 28px;
+            text-transform: uppercase;
+            color: var(--header-color);
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.8);
+            letter-spacing: 3px;
+            margin: 0;
+        }
 
-    /* MENU (Общие) */
-    .top-nav {
-        display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap;
-    }
-    .top-nav a {
-        text-decoration: none; color: var(--neon-blue); font-family: 'Orbitron', sans-serif;
-        font-weight: 700; padding: 10px 20px; border: 1px solid var(--neon-blue);
-        background: rgba(0, 243, 255, 0.05); text-transform: uppercase; letter-spacing: 1px;
-        transition: all 0.3s ease;
-    }
-    .top-nav a:hover {
-        background: var(--neon-blue); color: #000; box-shadow: 0 0 15px var(--neon-blue); transform: scale(1.05);
-    }
-    .top-nav a.active {
-        color: #000; background: var(--neon-red); border-color: var(--neon-red);
-        box-shadow: 0 0 15px var(--neon-red); cursor: default;
-    }
+        /* === Заголовки Контента === */
+        h2 {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+            border-left: 5px solid var(--header-color);
+            background-color: rgba(255, 0, 127, 0.05);
+            padding: 10px 15px;
+            margin-top: 40px;
+            font-size: 22px;
+            text-transform: uppercase;
+        }
+        
+        /* === Навигация (Меню) === */
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            background-color: #2c0e3e; 
+            border-bottom: 3px solid var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            padding: 10px 0;
+            flex-wrap: wrap; 
+        }
 
-    /* HEADER & GLITCH EFFECT (Общие) */
-    .header { text-align: center; margin-bottom: 50px; border-bottom: 2px solid var(--neon-red); padding-bottom: 20px; }
-    h1 {
-        font-family: 'Orbitron', sans-serif; font-size: 3em; color: #fff; text-transform: uppercase;
-        letter-spacing: 5px; margin: 0; position: relative; display: inline-block;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); animation: glitch-anim 2s infinite alternate;
-    }
-    @keyframes glitch-anim {
-        0% { text-shadow: 3px 0 0 var(--neon-red), -3px 0 0 var(--neon-blue); }
-        25% { text-shadow: 5px 0 0 var(--neon-blue), -2px 0 0 var(--neon-red); transform: translateX(-2px); }
-        50% { text-shadow: 0 0 0 var(--neon-red), 0 0 0 var(--neon-blue); }
-        75% { text-shadow: -1px 0 0 var(--neon-red), 4px 0 0 var(--neon-blue); transform: translateX(2px); }
-        100% { text-shadow: 3px 0 0 var(--neon-red), -3px 0 0 var(--neon-blue); }
-    }
+        .top-nav a {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            padding: 8px 12px;
+            margin: 5px 5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 255, 200, 0.5);
+            letter-spacing: 1px;
+        }
 
-    /* --- РОЛИ СПЕЦИФИЧЕСКИЕ СТИЛИ --- */
-    .roles-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        padding-top: 20px;
-    }
-    .role-card {
-        background-color: rgba(30, 30, 30, 0.8); padding: 25px; border: 2px solid transparent;
-        border-radius: 5px; transition: all 0.3s ease; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        position: relative; overflow: hidden;
-    }
-    .role-card:hover {
-        border-color: var(--neon-blue); box-shadow: 0 0 25px var(--neon-blue), 0 0 5px rgba(255, 255, 255, 0.5);
-        transform: translateY(-5px);
-    }
-    .role-header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
-    .role-image {
-        width: 80px; height: 80px; border-radius: 50%; overflow: hidden;
-        border: 3px solid var(--neon-red); flex-shrink: 0;
-    }
-    .role-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .role-header h2 {
-        font-family: 'Orbitron', sans-serif; color: var(--neon-red); font-size: 2em;
-        margin: 0; text-transform: uppercase;
-    }
-    .role-team { font-size: 0.9em; color: var(--neon-blue); margin-top: 5px; }
-    .role-description p { font-size: 1em; margin-bottom: 15px; line-height: 1.5; }
-    .role-ability { border-top: 1px dashed #444; padding-top: 15px; margin-top: 15px; }
-    .role-ability strong {
-        color: var(--neon-blue); display: block; margin-bottom: 5px; font-family: 'Orbitron', sans-serif;
-    }
-    .mafia .role-card { border-left: 5px solid var(--neon-red); }
-    .civilian .role-card { border-left: 5px solid var(--neon-blue); }
+        .top-nav a:hover {
+            background-color: var(--header-color);
+            color: var(--background-color);
+            border-color: var(--header-color);
+            box-shadow: 0 0 15px var(--header-color);
+        }
 
-    .footer-sign {
-        text-align: center; margin-top: 80px; padding-top: 20px;
-        border-top: 1px solid #333; font-size: 14px; color: var(--neon-blue);
-        font-family: 'Orbitron', sans-serif; opacity: 0.8; letter-spacing: 1px;
-    }
-</style>
+        .top-nav a.active {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+        
+        /* === Стили Ролей === */
+        .role-section {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .team-box {
+            flex: 1;
+            padding: 20px;
+            border: 2px solid;
+            box-shadow: 0 0 10px;
+        }
+
+        .red-team {
+            border-color: var(--civilian-color);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+            background-color: rgba(0, 255, 204, 0.05);
+        }
+
+        .black-team {
+            border-color: var(--mafia-color);
+            box-shadow: 0 0 15px rgba(255, 0, 76, 0.6);
+            background-color: rgba(255, 0, 76, 0.05);
+        }
+
+        .role-title {
+            font-size: 20px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed;
+        }
+        
+        .role-title.mafia { border-color: var(--mafia-color); color: var(--mafia-color); }
+        .role-title.civilian { border-color: var(--civilian-color); color: var(--civilian-color); }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+        
+        ul li {
+            margin-bottom: 10px;
+            border-left: 2px solid var(--text-color);
+            padding-left: 10px;
+        }
+        
+        strong {
+            color: #fff;
+        }
+
+    </style>
 </head>
 <body>
 
-<div id="preloader">
-    <div class="loading-text">ACCESSING DOSSIER FILES...</div>
-</div>
-
-<div class="container" id="main-content">
-
+<div class="container">
+    
     <nav class="top-nav">
-        <a href="index.html" data-audio="click1">КРАТКИЕ ПРАВИЛА</a>
-        <a href="podrobnye.html" data-audio="click2">ПОДРОБНЫЕ ПРАВИЛА</a>
-        <a href="roles.html" class="active" data-audio="click3">ДОСЬЕ: РОЛИ</a>
-        <a href="leaderboard.html" data-audio="click4">ЗАЛ СЛАВЫ</a>
-        <a href="timer.html" data-audio="click5">ТАЙМЕР</a>
-        <a href="media.html" data-audio="click6">МЕДИА</a>
+        <a href="index.html">ПРАВИЛА (КРАТКО)</a>
+        <a href="podrobnye.html">ПРАВИЛА (ПОДРОБНО)</a>
+        <a href="roles.html" class="active">РОЛИ</a>
+        <a href="timer.html">ТАЙМЕР</a>
+        <a href="rating.html">РЕЙТИНГ & АРХИВ</a> 
+        <a href="contacts.html">КОНТАКТЫ</a>
     </nav>
-
+    
     <div class="header">
-        <h1>КЛАССИФИКАЦИЯ ЕДИНИЦ</h1>
+        <h1 style="font-size: 36px;">СИСТЕМА РАСПРЕДЕЛЕНИЯ РОЛЕЙ</h1>
+        <p style="color: var(--accent-color); margin-top: 5px;">// ROLE MATRIX // 10 PLAYER CONFIG //</p>
     </div>
 
-    <div class="roles-grid">
-        <div class="role-entry mafia">
-            <div class="role-card">
-                <div class="role-header">
-                    <div class="role-image"><img src="img/don.png" alt="Изображение Дона"></div>
-                    <div><h2>ДОН</h2><p class="role-team">ФРАКЦИЯ: ЧЕРНАЯ КОМАНДА</p></div>
-                </div>
-                <div class="role-description"><p>Лидер мафии, координирующий ночные действия. Его цель — выявить Шерифа и устранить ключевые фигуры Красной команды.</p></div>
-                <div class="role-ability"><strong>НОЧНОЕ ДЕЙСТВИЕ:</strong> Проверяет одного игрока на принадлежность к роли Шерифа.</div>
-            </div>
-        </div>
+    <h2>РАСПРЕДЕЛЕНИЕ КОМАНДЫ (10 ИГРОКОВ)</h2>
+
+    <div class="role-section">
         
-        <div class="role-entry mafia">
-            <div class="role-card">
-                <div class="role-header">
-                    <div class="role-image"><img src="img/mafia.png" alt="Изображение Мафии"></div>
-                    <div><h2>МАФИОЗИ</h2><p class="role-team">ФРАКЦИЯ: ЧЕРНАЯ КОМАНДА</p></div>
-                </div>
-                <div class="role-description"><p>Рядовой член мафии. Его главная задача — убедительно притворяться Мирным жителем и участвовать в ночном отстреле, следуя указаниям Дона.</p></div>
-                <div class="role-ability"><strong>НОЧНОЕ ДЕЙСТВИЕ:</strong> Участвует в выборе цели для устранения.</div>
-            </div>
+        <div class="team-box red-team">
+            <h2 style="color: var(--civilian-color); border-color: var(--civilian-color);">КРАСНАЯ КОМАНДА (7 ИГРОКОВ)</h2>
+            <p><strong>Цель:</strong> Вычислить и устранить всех членов Черной Команды до того, как их численность сравняется.</p>
+            
+            <div class="role-title civilian">ШЕРИФ (Sheriff)</div>
+            <p><strong>Функция:</strong> Просыпается ночью и имеет право проверить **одного** игрока на принадлежность к Черной или Красной команде. Ключевой Красный игрок.</p>
+            
+            <div class="role-title civilian">МИРНЫЙ ЖИТЕЛЬ (Civilian)</div>
+            <p><strong>Функция:</strong> Имеет одну минуту днем для убеждения стола в своей непричастности. Не имеет ночных действий. Побеждает, если побеждает Красная Команда.</p>
         </div>
 
-        <div class="role-entry civilian">
-            <div class="role-card">
-                <div class="role-header">
-                    <div class="role-image"><img src="img/sheriff.png" alt="Изображение Шерифа"></div>
-                    <div><h2>ШЕРИФ</h2><p class="role-team">ФРАКЦИЯ: КРАСНАЯ КОМАНДА</p></div>
-                </div>
-                <div class="role-description"><p>Ключевой игрок Красной команды. Задача — использовать ночную проверку для выявления Черных игроков.</p></div>
-                <div class="role-ability"><strong>НОЧНОЕ ДЕЙСТВИЕ:</strong> Проверяет одного игрока на принадлежность к Мафии.</div>
-            </div>
-        </div>
+        <div class="team-box black-team">
+            <h2 style="color: var(--mafia-color); border-color: var(--mafia-color);">ЧЕРНАЯ КОМАНДА (3 ИГРОКА)</h2>
+            <p><strong>Цель:</strong> Устранить членов Красной Команды, пока их численность не сравняется с численностью Мафии.</p>
+            
+            <div class="role-title mafia">ДОН МАФИИ (Don)</div>
+            <p><strong>Функция:</strong> Глава Мафии. Участвует в ночном "отстреле" (первая ночь — договорка). Последующие ночи просыпается для поиска **Шерифа**.</p>
 
-        <div class="role-entry civilian">
-            <div class="role-card">
-                <div class="role-header">
-                    <div class="role-image"><img src="img/civilian.png" alt="Изображение Мирного"></div>
-                    <div><h2>МИРНЫЙ ЖИТЕЛЬ</h2><p class="role-team">ФРАКЦИЯ: КРАСНАЯ КОМАНДА</p></div>
-                </div>
-                <div class="role-description"><p>Основа Красной команды. Не имеет ночных действий, но должен быть максимально убедителен Днем.</p></div>
-                <div class="role-ability"><strong>НОЧНОЕ ДЕЙСТВИЕ:</strong> ОТСУТСТВУЕТ (Спит).</div>
-            </div>
+            <div class="role-title mafia">МАФИЯ (Mafia)</div>
+            <p><strong>Функция:</strong> Участвует в ночном "отстреле". Для успешного убийства **все 3 черных игрока** должны указать одну и ту же цель.</p>
         </div>
     </div>
-
-    <div class="footer-sign">
-        DATA INTEGRITY CHECK: OK // by baby_twix 1 and baby_twix 2
-    </div>
+    
+    <h2 style="margin-top: 60px;">КЛЮЧЕВЫЕ ПРАВИЛА ФАЗ</h2>
+    <ul>
+        <li>**День (Обсуждение):** Игроки убеждают стол. Длительность речи — 60 секунд.</li>
+        <li>**Ночь (Действия):** Все игроки "засыпают". Дон и Шериф имеют по 20 секунд на проверку.</li>
+        <li>**Победа:** Красные побеждают, если все Черные выведены. Черные побеждают, если их число равно или больше числа Красных.</li>
+    </ul>
 
 </div>
-
-<audio id="click1" src="audio/click1.mp3"></audio>
-<audio id="click2" src="audio/click2.mp3"></audio>
-<audio id="click3" src="audio/click3.mp3"></audio>
-<audio id="click4" src="audio/click4.mp3"></audio>
-<audio id="click5" src="audio/click5.mp3"></audio>
-<audio id="click6" src="audio/click6.mp3"></audio>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // PRELOADER LOGIC
-        const preloader = document.getElementById('preloader');
-        const content = document.getElementById('main-content');
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-                content.style.opacity = '1';
-                content.style.animation = 'fadeInUp 0.8s ease-out';
-            }, 500);
-        }, 1000);
-
-        // MENU AUDIO HOVER LOGIC
-        const navLinks = document.querySelectorAll('.top-nav a');
-        navLinks.forEach(link => {
-            const audioId = link.getAttribute('data-audio');
-            const audio = document.getElementById(audioId);
-            if (audio) {
-                link.addEventListener('mouseenter', () => {
-                    if (!link.classList.contains('active')) {
-                        audio.currentTime = 0;
-                        audio.volume = 0.5;
-                        audio.play().catch(e => console.log("Audio play error:", e));
-                    }
-                });
-            }
-        });
-    });
-</script>
 </body>
 </html>
