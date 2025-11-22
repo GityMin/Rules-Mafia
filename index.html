@@ -2,200 +2,309 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legion Mafia - Краткие Правила</title>
     <style>
-        /* === ТЕМНЫЙ РЕГЛАМЕНТ (CSS) - ГЛУБОКИЙ КРАСНЫЙ === */
+        /* ========================================= */
+        /* КИБЕРПАНК СТИЛИ (CSS) - ЦИФРОВАЯ МАФИЯ */
+        /* ========================================= */
         :root {
-            --primary: #d32f2f; /* Глубокий красный */
-            --bg: #121212;
-            --surface: #1e1e1e;
-            --text: #e0e0e0;
-            --border: #333;
-            --accent: #ff5252; /* Яркий красный */
-            --menu-bg: #222; /* Фон меню */
+            --background-color: #0d0d1a; /* Очень темный, почти черный фон */
+            --text-color: #FFD7D7;       /* Светлый розовато-красный (основной текст) */
+            --header-color: #E30B5C;     /* Глубокий красный/Кримсон (главный акцент) */
+            --accent-color: #FF4500;     /* Огненно-красный/Вермильон (вторичный акцент) */
+            --warning-color: #ffcc00;    /* Желтый для предупреждений */
+            --font-family-cyb: 'Share Tech Mono', monospace, Arial, sans-serif;
+            --container-bg: #2C1111;     /* Темно-красный фон контейнера */
         }
 
         body {
-            font-family: 'Roboto', 'Segoe UI', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: var(--font-family-cyb);
+            background-color: var(--background-color);
+            color: var(--text-color);
             line-height: 1.6;
-            margin: 0;
             padding: 0;
+            margin: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
         .container {
-            max-width: 960px;
+            max-width: 900px;
             margin: 40px auto;
-            background-color: var(--surface);
-            border: 1px solid var(--border);
+            padding: 40px 20px;
+            background-color: var(--container-bg);
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.5); /* Красное свечение */
             border-radius: 8px;
-            padding: 60px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            flex-grow: 1;
-            width: calc(100% - 80px);
-        }
-
-        /* Навигационное меню */
-        .top-nav {
-            background-color: var(--menu-bg);
-            border-radius: 6px;
-            margin-bottom: 30px;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: center;
-            border: 1px solid var(--border);
-            flex-wrap: wrap;
-        }
-
-        .top-nav a {
-            color: var(--text);
-            text-decoration: none;
-            padding: 10px 20px;
-            margin: 5px 10px;
-            font-weight: bold;
-            transition: color 0.3s, background-color 0.3s;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
-        .top-nav a:hover {
-            color: var(--primary);
-            background-color: #333;
-        }
-
-        .top-nav a.active {
-            color: #fff;
-            background-color: var(--primary);
         }
         
-        /* Логотип и Заголовок */
-        .header {
-            text-align: center;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 30px;
-            margin-bottom: 40px;
-        }
-
-        .logo img {
-            max-width: 200px;
-            margin-bottom: 20px;
-            /* Обновляем тень, чтобы соответствовала новой палитре */
-            filter: drop-shadow(0 0 10px rgba(211, 47, 47, 0.3));
-        }
-
-        h1 {
-            font-size: 28px;
-            text-transform: uppercase;
-            color: var(--accent);
-            letter-spacing: 2px;
-            margin: 0;
-        }
-
-        /* Типографика заголовков */
-        h2 {
-            color: #fff;
-            background: linear-gradient(90deg, rgba(211, 47, 47, 0.2) 0%, transparent 100%);
-            border-left: 4px solid var(--primary);
-            padding: 10px 15px;
-            margin-top: 50px;
-            font-size: 22px;
-        }
-
-        h3 {
-            color: var(--accent);
-            font-size: 18px;
+        /* Заголовки */
+        h1, h2, h3 {
+            color: var(--header-color);
+            text-shadow: 0 0 5px var(--header-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
             margin-top: 30px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 5px;
-            display: inline-block;
         }
 
-        /* Списки и параграфы */
+        /* Списки */
         ul, ol {
-            padding-left: 25px;
-            margin-bottom: 20px;
+            list-style: none;
+            padding-left: 0;
         }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        p {
+        
+        ol li, ul li {
             margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        /* Киберпанк-маркеры списка */
+        ol li::before {
+            content: counter(li) ".";
+            counter-increment: li;
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
         }
 
-        strong {
-            color: #fff;
+        ul li::before {
+            content: '>';
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        /* Ссылки */
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
-        /* Таблицы и блоки внимания */
-        .warning-block {
-            background-color: rgba(211, 47, 47, 0.1);
-            border: 1px dashed var(--primary);
-            padding: 20px;
-            border-radius: 6px;
-            margin: 20px 0;
+        a:hover {
+            color: var(--header-color);
+            text-decoration: underline;
         }
-
+        
+        /* Таблицы */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 14px;
+            margin: 20px 0;
+            border: 1px solid var(--accent-color);
         }
 
         th, td {
-            border: 1px solid var(--border);
-            padding: 12px;
+            padding: 10px;
             text-align: left;
-            vertical-align: top;
+            border-bottom: 1px solid var(--border, #424242);
         }
 
         th {
-            background-color: #2c2c2c;
-            color: var(--accent);
+            background-color: var(--header-color);
+            color: var(--background-color);
             text-transform: uppercase;
-            font-size: 12px;
         }
 
         tr:nth-child(even) {
-            background-color: #252525;
-        }
-
-        /* Специальные классы для формул и цифр */
-        .stat-box {
-            display: inline-block;
-            background-color: var(--primary);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Consolas', monospace;
-            color: #fff;
+            background-color: rgba(255, 69, 0, 0.05); /* Легкий красный оттенок */
         }
         
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            border-top: 1px solid var(--border);
-            font-size: 14px;
-            color: var(--text);
+        /* Блок предупреждения */
+        .warning-block {
+            border: 2px dashed var(--warning-color);
+            padding: 15px;
+            margin-top: 20px;
+            background-color: rgba(255, 204, 0, 0.05);
+            color: var(--warning-color);
+            border-radius: 5px;
         }
 
-        /* Mobile adjustments */
+        .warning-block strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        /* Навигация вверху */
+        .nav-bar {
+            background-color: #000000;
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--header-color);
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--header-color);
+            border-color: var(--accent-color);
+            background-color: rgba(227, 11, 92, 0.1);
+        }
+        
+        .active-link {
+            border-color: var(--header-color);
+            color: var(--header-color);
+            font-weight: bold;
+        }
+        
+        /* Адаптивность */
         @media (max-width: 768px) {
             .container {
+                margin: 20px 10px;
                 padding: 20px;
-                margin: 10px;
-                width: auto;
             }
+            .nav-link {
+                display: block;
+                margin: 5px 10px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="index.html" class="nav-link active-link">Краткие Правила</a>
+        <a href="podrobnye.html" class="nav-link">Подробные Правила</a>
+        <a href="roles.html" class="nav-link">Роли</a>
+        <a href="rating.html" class="nav-link">Рейтинг & Архив</a>
+        <a href="timer.html" class="nav-link">Таймер</a>
+        <a href="contacts.html" class="nav-link">Контакты</a>
+    </div>
 
-            h1 {
-                font-size: 22px;
-            }
+    <div class="container">
+        <h1>Краткие Правила Клуба "Legion Mafia"</h1>
+        <p>Эти правила являются выдержкой из полных правил, необходимых для комфортной и честной игры в нашем онлайн-клубе.</p>
+
+        <h2>1. Общие Положения</h2>
+        <ol>
+            <li>
+                **Технические требования:** Игрок обязан иметь стабильное интернет-соединение, качественный микрофон без эхо, и камеру, направленную на лицо.
+            </li>
+            <li>
+                **Сеттинг игры:** За столом действует "Сухой Закон". Запрещены любые упоминания, намеки, ассоциации с прошлыми играми, статистикой игроков, а также "закрытая" информация (например, "Я играл с ним вчера"). **Играем только то, что видим сейчас.**
+            </li>
+            <li>
+                **Коммуникация:** Запрещено общаться вне игровых рамок (ЛС, звонки, жесты, записки) до окончания игры.
+            </li>
+        </ol>
+        
+        <h2>2. Поведения за Столом</h2>
+        <ol>
+            <li>
+                **Регламент:** Игрок обязан соблюдать свой регламент (1 минута). Нарушение регламента (например, 1:05) наказывается предупреждением. **Если игрок закончил речь и имеет 5 секунд и более, он может передать слово.**
+            </li>
+            <li>
+                **Ответный Регламент:** Обсуждение кандидатуры на голосовании (ответный регламент) длится 30 секунд. Игрок обязан говорить по существу.
+            </li>
+            <li>
+                **Неадекватность/Оскорбления:** Категорически запрещены оскорбления, нецензурная брань, политические и религиозные темы. Наказание - моментальное удаление из игры и отстранение.
+            </li>
+            <li>
+                **Использование информации:** Запрещено разглашать свою роль или роль другого игрока во время игры, кроме как в специально отведенные моменты (например, при вскрытии Шерифа).
+            </li>
+        </ol>
+
+        <h2>3. Голосование</h2>
+        <ol>
+            <li>
+                **Порядок:** Голосование идет по порядку, начиная с игрока, получившего больше всего номинаций.
+            </li>
+            <li>
+                **Поднятие руки:** Голос считается, если рука поднята **до** слова "Спасибо" или "Стоп" Ведущего.
+            </li>
+            <li>
+                **Запрет на смену голоса:** Смена голоса/руки после первого поднятия **запрещена** и карается фолом.
+            </li>
+        </ol>
+
+        <h2>4. Технические Нарушения (Фолы/Предупреждения)</h2>
+        <p>Наказание за технические нарушения (в игре называется "фол") ведет к снижению времени на регламент, а при рецидиве - к удалению.</p>
+        <ol>
+            <li>
+                **1-й Фол:** Не влияет на регламент, но является предупреждением.
+            </li>
+            <li>
+                **2-й Фол:** Регламент игрока уменьшается на **10 секунд**.
+            </li>
+            <li>
+                **3-й Фол:** Регламент игрока уменьшается еще на **10 секунд** (общее снижение - 20 сек).
+            </li>
+            <li>
+                **4-й Фол (Удаление):** Игрок удаляется из игры. Его роль не раскрывается, но он учитывается в итоговом подсчете как убитый в этот же день.
+            </li>
+        </ol>
+
+        <div class="warning-block">
+            <strong>ОСОБОЕ ПРАВИЛО ПО АРХИВУ:</strong>
+            <p>Игрок попадает в **Архив**, если его рейтинг падает ниже 2.4. Попадание в Архив ограничивает его участие в играх до момента повышения рейтинга или прохождения испытательного срока.</p>
+        </div>
+        
+        <h3>Повышение Рейтинга (для выхода из Архива)</h3>
+        <p>Рейтинг "Р" - это усредненный показатель эффективности, который обновляется после каждой игры. Для выхода из Архива нужно поднять этот показатель:</p>
+        <table class="rating-table">
+            <thead>
+                <tr>
+                    <th>Показатель (Р)</th>
+                    <th>Базовый Рейтинг (Очки)</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>**Ниже 2.4**</td>
+                <td style="background-color: var(--header-color); color: var(--background-color);">**Архив**</td>
+            </tr>
+            <tr>
+                <td>2.4-2.5</td>
+                <td>925 очков</td>
+            </tr>
+            <tr>
+                <td>2.5-2.6</td>
+                <td>950 очков</td>
+            </tr>
+            <tr>
+                <td>**2.6-2.7**</td>
+                <td>**975 очков**</td>
+            </tr>
+            <tr>
+                <td>**2.7 и более**</td>
+                <td>**1000 очков**</td>
+            </tr>
+        </table>
+
+    <h3>5. Послеигровые Штрафы</h3>
+    <ol>
+        <li>
+            **Штраф за нарушение коммуникации после игры:** Если нарушение, такое как общение вне игрового процесса (ЛС), обнаружено **после игры**:
+            <ul>
+                <li>Игрок, который **инициировал сообщение**, получает штраф **-10 очков**.</li>
+                <li>Игрок, который **ответил** на запрещенное сообщение, получает штраф **-5 очков**.</li>
+            </ul>
+        </li>
+        <li>
+            **Переигровка:** Если нарушение, обнаруженное после игры, **напрямую повлияло на исход** (например, раскрытие роли), Ведущий принимает решение о необходимости **переигровки**.
+        </li>
+        <li>
+            **Отстранение за рецидив:** Получивший **более 3 технических нарушений** правил за год, отстраняется на период. Продолжение нарочного нарушения правил после возвращения карается отстранением навсегда. Косому можно ВСЁ!
+        </li>
+    </ol>
+    
+    <div style="text-align: center; margin-top: 50px; font-size: 14px; color: var(--text-color);">
+        by baby_twix 1 and baby_twix 2, 2024
+    </div>
+
+    </div>
+</body>
+</html>
