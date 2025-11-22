@@ -4,265 +4,388 @@
     <meta charset="UTF-8">
     <title>Legion Mafia - Рейтинг & Архив</title>
     <style>
-        /* === КИБЕРПАНК СТИЛИ (CSS) - ЦИФРОВАЯ МАФИЯ === */
+        /* ========================================= */
+        /* === СТИЛЬ "Y2K / FUTURISTIC GLITCH" === */
+        /* ========================================= */
+        
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
         :root {
-            --background-color: #0d0d1a;
-            --text-color: #00ffc8;
-            --header-color: #ff007f;
-            --accent-color: #00ffff;
-            --warning-color: #ffcc00;
-            --font-family-cyb: 'Share Tech Mono', monospace, Arial, sans-serif;
-            --container-bg: #1a0a29;
-            --border: #424242; /* Добавлен для таблиц */
+            --color-main: #39FF14;      /* Неоновый зеленый (Main Glow) */
+            --color-accent: #00FFFF;    /* Кибер-голубой */
+            --color-background: #0A0A1F; /* Очень темный фон */
+            --color-dark: #1F1F3D;      /* Темный контейнер */
+            --color-error: #FF3333;     /* Глитч-красный */
+            --font-header: 'Orbitron', sans-serif;
+            --font-body: 'Share Tech Mono', monospace;
         }
 
+        /* === ОБЩИЕ СТИЛИ И ФОН === */
         body {
-            font-family: var(--font-family-cyb);
-            background-color: var(--background-color);
-            color: var(--text-color);
+            font-family: var(--font-body);
+            background-color: var(--color-background);
+            color: var(--color-main);
             line-height: 1.6;
             padding: 0;
             margin: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden; /* Защита от горизонтального скролла из-за глитча */
         }
 
         .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 40px 20px;
-            background-color: var(--container-bg);
-            border: 2px solid var(--accent-color);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 50px 30px;
+            background-color: var(--color-dark);
+            border: 2px solid var(--color-accent);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5), inset 0 0 15px rgba(0, 255, 255, 0.3);
+            position: relative;
+            z-index: 10;
             flex-grow: 1;
+            transition: transform 0.3s ease;
         }
-        
-        /* === Шапка/Логотип === */
-        .header {
-            text-align: center;
-            border-bottom: 2px dashed var(--header-color);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+
+        /* === ЗАГОЛОВКИ И ГЛИТЧ-ЭФФЕКТ === */
+        h1, h2 {
+            font-family: var(--font-header);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            color: var(--color-main);
+            text-shadow: 0 0 5px var(--color-main);
         }
 
         h1 {
-            font-size: 28px;
-            text-transform: uppercase;
-            color: var(--header-color);
-            text-shadow: 0 0 10px rgba(255, 0, 127, 0.8);
-            letter-spacing: 3px;
-            margin: 0;
+            font-size: 38px;
+            border-bottom: 3px solid var(--color-error);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
         }
 
-        /* === Заголовки Контента === */
         h2 {
-            color: var(--accent-color);
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
-            border-left: 5px solid var(--header-color);
-            background-color: rgba(255, 0, 127, 0.05);
+            font-size: 24px;
+            color: var(--color-accent);
+            text-shadow: 0 0 8px var(--color-accent);
+            border-left: 5px solid var(--color-main);
             padding: 10px 15px;
             margin-top: 40px;
-            font-size: 22px;
-            text-transform: uppercase;
         }
 
-        h3 {
-            color: var(--text-color);
-            border-bottom: 1px dashed var(--text-color);
-            padding-bottom: 5px;
-            margin-top: 25px;
-            font-size: 18px;
+        /* АНИМАЦИЯ ГЛИТЧА ДЛЯ ЗАГОЛОВКОВ */
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-shadow: 0 0 5px var(--color-main);
+            background: var(--color-dark);
+            clip: rect(0, 900px, 0, 0);
         }
 
-        /* === Навигация (Меню) === */
+        .glitch-text:hover::before {
+            text-shadow: 2px 0 var(--color-error);
+            clip: rect(44px, 900px, 56px, 0);
+            animation: glitch-anim 0.8s infinite alternate-reverse;
+        }
+
+        .glitch-text:hover::after {
+            text-shadow: -2px 0 var(--color-accent);
+            clip: rect(80px, 900px, 92px, 0);
+            animation: glitch-anim 0.7s infinite alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(20px, 900px, 30px, 0); transform: skew(0.5deg); }
+            25% { clip: rect(60px, 900px, 70px, 0); transform: skew(-0.5deg); }
+            50% { clip: rect(80px, 900px, 90px, 0); transform: skew(1deg); }
+            75% { clip: rect(10px, 900px, 20px, 0); transform: skew(-1deg); }
+            100% { clip: rect(40px, 900px, 50px, 0); transform: skew(0.5deg); }
+        }
+
+        /* === СТАНДАРТНАЯ НАВИГАЦИЯ (ОСНОВНОЕ МЕНЮ) === */
         .top-nav {
             display: flex;
             justify-content: center;
-            background-color: #2c0e3e; 
-            border-bottom: 3px solid var(--accent-color);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            background-color: var(--color-dark); 
+            border: 2px solid var(--color-main);
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
             padding: 10px 0;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
         .top-nav a {
             background-color: transparent;
-            color: var(--text-color);
-            border: 1px solid var(--text-color);
-            padding: 8px 15px;
-            margin: 0 10px;
+            color: var(--color-main);
+            border: 1px solid var(--color-main);
+            padding: 10px 18px;
+            margin: 5px;
             text-decoration: none;
             text-transform: uppercase;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 0 5px rgba(0, 255, 200, 0.5);
+            box-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
             letter-spacing: 1px;
+            position: relative;
         }
 
         .top-nav a:hover {
-            background-color: var(--header-color);
-            color: var(--background-color);
-            border-color: var(--header-color);
-            box-shadow: 0 0 15px var(--header-color);
+            background-color: var(--color-accent);
+            color: var(--color-background);
+            border-color: var(--color-accent);
+            box-shadow: 0 0 20px var(--color-accent);
+            transform: translateY(-2px);
         }
 
         .top-nav a.active {
-            background-color: var(--accent-color);
-            color: var(--background-color);
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px var(--accent-color);
-        }
-        
-        /* === Контентные элементы === */
-        ul, ol {
-            list-style-type: none;
-            padding-left: 20px;
+            background-color: var(--color-error);
+            color: var(--color-background);
+            border-color: var(--color-error);
+            box-shadow: 0 0 20px var(--color-error);
         }
 
-        ul li:before, ol li:before {
-            content: ">>";
-            color: var(--header-color);
-            font-weight: bold;
-            display: inline-block;
-            width: 20px;
-            margin-left: -20px;
-            text-shadow: 0 0 3px var(--header-color);
+        /* === МЕДИА-КНОПКИ (СУПЕР-КРУТЫЕ ССЫЛКИ) === */
+        .media-links {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        strong {
-            color: #fff;
+        .media-btn {
+            font-family: var(--font-header);
+            padding: 15px 30px;
+            text-transform: uppercase;
             font-weight: 700;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
         }
 
-        .warning-block {
-            background-color: rgba(255, 0, 127, 0.1);
-            border: 1px dashed var(--warning-color);
-            padding: 15px;
-            margin: 20px 0;
-            box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+        .media-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            z-index: 1;
+            transform: skewX(-20deg);
         }
 
+        .media-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Специфические стили для каждой кнопки */
+        .discord-btn {
+            background-color: #5865F2; /* Discord Blue */
+            color: white;
+            box-shadow: 0 0 20px #5865F2;
+        }
+        .youtube-btn {
+            background-color: #FF0000; /* YouTube Red */
+            color: white;
+            box-shadow: 0 0 20px #FF0000;
+        }
+        .telegram-btn {
+            background-color: #0088CC; /* Telegram Blue */
+            color: white;
+            box-shadow: 0 0 20px #0088CC;
+        }
+
+        /* Текст и контент */
+        .content-list li {
+            margin-bottom: 15px;
+            border-left: 3px solid var(--color-accent);
+            padding-left: 15px;
+            transition: all 0.3s;
+        }
+
+        .content-list li:hover {
+            background-color: rgba(57, 255, 20, 0.05);
+            border-left-color: var(--color-main);
+        }
+
+        /* === ОБНОВЛЕНИЕ ДЛЯ ФОРМ И ТАБЛИЦ === */
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 25px 0;
-            border: 1px solid var(--accent-color);
+            border: 2px solid var(--color-main);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
         }
 
         th, td {
-            border: 1px solid var(--border);
-            padding: 10px;
+            border: 1px dashed var(--color-accent);
+            padding: 12px;
             text-align: left;
         }
 
         th {
-            background-color: #1a0a29;
-            color: var(--header-color);
+            background-color: var(--color-dark);
+            color: var(--color-error);
             text-transform: uppercase;
+            font-family: var(--font-header);
+            text-shadow: 0 0 5px var(--color-error);
         }
 
         tr:nth-child(even) {
-            background-color: #15081f;
+            background-color: rgba(57, 255, 20, 0.05);
         }
         
-        .stat-box {
-            background-color: var(--header-color);
-            color: var(--background-color);
-            padding: 2px 5px;
-            border-radius: 2px;
-            font-weight: bold;
+        .footer-note {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--color-accent);
+            font-size: 12px;
+            color: var(--color-accent);
         }
 
+        /* === СТИЛЬ ТАЙМЕРА === */
+        .timer-zone {
+            background-color: var(--color-background);
+            border: 4px solid var(--color-main);
+            box-shadow: 0 0 40px var(--color-main);
+        }
+        #display {
+            font-family: var(--font-header);
+            color: var(--color-main);
+            text-shadow: 0 0 30px var(--color-main), 0 0 60px rgba(57, 255, 20, 0.8);
+        }
+        .control-buttons button {
+            border-radius: 5px;
+            transform: perspective(1px) translateZ(0); /* 3D hover prep */
+            box-shadow: 0 0 10px var(--color-accent);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .control-buttons button:hover {
+            transform: scale(1.05) translateY(-3px);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     
-   <nav class="top-nav">
+    <nav class="top-nav">
         <a href="index.html">ПРАВИЛА (КРАТКО)</a>
         <a href="podrobnye.html">ПРАВИЛА (ПОДРОБНО)</a>
         <a href="roles.html">РОЛИ</a>
-        <a href="timer.html" class="active">ТАЙМЕР</a>
-        <a href="rating.html">РЕЙТИНГ & АРХИВ</a> 
+        <a href="timer.html">ТАЙМЕР</a>
+        <a href="rating.html" class="active">РЕЙТИНГ & АРХИВ</a> 
         <a href="contacts.html">КОНТАКТЫ</a>
     </nav>
     
-    <div class="header">
-        <div class="logo">
-            <h1 style="font-size: 36px;">LEGION MAFIA</h1>
-            <p style="color: var(--accent-color); margin-top: 5px;">// RATING // DATA LOG // </p>
-        </div>
-        <h1>РЕЙТИНГОВАЯ СИСТЕМА И АРХИВ ИГРОКОВ</h1>
+    <div class="header" style="text-align: center;">
+        <h1 class="glitch-text" data-text="РЕЙТИНГ И АРХИВ">РЕЙТИНГ И АРХИВ</h1>
+        <p style="color: var(--color-accent); margin-top: -20px; font-size: 14px;">// RATING MATRIX // PLAYER SCORE LOGS // </p>
     </div>
 
-    <h2>1. Новички рейтинга</h2>
-    <p>Все новые участники начинают свой путь в системе с базовых показателей:</p>
-    <ul>
-        <li>Стартовый рейтинг: **1000 очков**.</li>
-        <li>Новичок (<10 игр) имеет право на **технические подсказки** от Ведущего в **ЛС** (Личные Сообщения).</li>
+    <h2>1. Рейтинговая Система</h2>
+    <p>Рейтинг является ключевым показателем мастерства игрока. Каждая игра приносит или отнимает очки.</p>
+    <ul class="content-list" style="list-style: none; padding-left: 0;">
+        <li>Начальный рейтинг нового игрока: **1000 очков**.</li>
+        <li>**Победа** в игре: **+30 очков**.</li>
+        <li>**Поражение** в игре: **-20 очков**.</li>
+        <li>**Лучший игрок (MVP):** дополнительно **+5 очков** (только для победившей команды).</li>
+        <li>Игрок может получить штрафные очки за нарушения правил, которые не привели к удалению.</li>
     </ul>
 
-    <h2>2. Подсчёт рейтинга (Коэффициенты)</h2>
-    <p>Рейтинг игрока меняется после каждой игры. Коэффициенты, используемые в расчете, зависят от опыта и текущего статуса игрока, что влияет на скорость изменения рейтинга:</p>
-    <ul>
-        <li>**Х1:** Рейтинг **более 2000** (минимальный коэффициент).</li>
-        <li>**Х2:** Более **30 игр**.</li>
-        <li>**Х4:** Менее **30 игр** (высокий коэффициент для быстрого старта).</li>
+    <h2>2. Архив (ARCHIVE)</h2>
+    <p>Игрок переводится в Архив в следующих случаях:</p>
+    <ul class="content-list" style="list-style: none; padding-left: 0;">
+        <li>Рейтинг падает ниже **900 очков**.</li>
+        <li>Игрок имеет менее **10 игр** и не играл более **одного месяца**.</li>
+        <li>Личный отказ от игр в клубе.</li>
     </ul>
-
-    <h2>3. Архив игроков (Подробно)</h2>
-    <p>Игроки могут попасть в Архив, что приводит к сбросу их статистики. Это механизм поддержания активного и конкурентного рейтинга.</p>
-    <ol>
-        <li>Игрок, попадающий в архив, **не сохраняет** свои очки рейтинга, СДБ, процент побед и количество игр.</li>
-        <li>Условия попадания: рейтинг **менее 900 очков**, личный отказ, или неактивность (менее 10 игр и не отыграл ни одну игру за месяц).</li>
-        <li>Срок возвращения: через месяц после попадания. В случае повторных попаданий в архив добавляется +1 месяц.</li>
-        <li>**Процедура Калибровки:**
-            <p>После возвращения игрок играет **10 калибровочных игр**. Игры должны быть отыграны **в течение одного месяца**.</p>
-            <p>Во время калибровки рейтинг игрока в подсчёте для других игроков: **900 очков**.</p>
-            <p>Стартовый рейтинг после калибровки зависит от **Среднего Дополнительного Балла (СДБ)**:</p>
-            <table>
-                <tr>
-                    <th>СДБ после 10 игр</th>
-                    <th>Стартовый рейтинг</th>
-                </tr>
-                <tr>
-                    <td>Менее 2.4</td>
-                    <td class="stat-box" style="background-color: var(--header-color);">**Не допущен** (снова в архив)</td>
-                </tr>
-                <tr>
-                    <td>2.4 — 2.5</td>
-                    <td>925 очков</td>
-                </tr>
-                <tr>
-                    <td>2.5-2.6</td>
-                    <td>950 очков</td>
-                </tr>
-                <tr>
-                    <td>**2.6-2.7**</td>
-                    <td class="stat-box" style="background-color: var(--accent-color); color: var(--background-color);">**975 очков**</td>
-                </tr>
-                <tr>
-                    <td>**2.7 и более**</td>
-                    <td class="stat-box" style="background-color: var(--accent-color); color: var(--background-color);">**1000 очков**</td>
-                </tr>
-            </table>
-        </li>
-    </ol>
     
+    <h3>2.1. Возврат из Архива</h3>
+    <ul class="content-list" style="list-style: none; padding-left: 0;">
+        <li>Игрок из Архива может вернуться, как только его рейтинг поднимется до **900 очков** (если причина была в рейтинге).</li>
+        <li>Игрок, вернувшийся из Архива, должен **пройти калибровку** (сыграть 10 игр).</li>
+        <li>Если игрок возвращается после долгого отстранения, его рейтинг остаётся прежним, но он должен пройти калибровку.</li>
+    </ul>
+
+    <h2>3. Таблица Рейтинга (W/L Ratio)</h2>
+    <p>Таблица демонстрирует, какое количество очков соответствует вашему отношению побед к поражениям (W/L Ratio).</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Отношение П/П (W/L)</th>
+                <th>Рейтинг (SCORE)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="stat-box" style="background-color: var(--color-error);">Менее 2.0</td>
+                <td class="stat-box" style="background-color: var(--color-error);">Архив (Менее 900 очков)</td>
+            </tr>
+            <tr>
+                <td>2.0 — 2.1</td>
+                <td>900 очков</td>
+            </tr>
+            <tr>
+                <td>2.1 — 2.2</td>
+                <td>910 очков</td>
+            </tr>
+            <tr>
+                <td>2.2 — 2.3</td>
+                <td>915 очков</td>
+            </tr>
+            <tr>
+                <td>2.3 — 2.4</td>
+                <td>920 очков</td>
+            </tr>
+            <tr>
+                <td>2.4 — 2.5</td>
+                <td>925 очков</td>
+            </tr>
+            <tr>
+                <td>2.5-2.6</td>
+                <td>950 очков</td>
+            </tr>
+            <tr>
+                <td>**2.6-2.7**</td>
+                <td>**975 очков**</td>
+            </tr>
+            <tr>
+                <td>**2.7 и более**</td>
+                <td>**1000 очков**</td>
+            </tr>
+        </tbody>
+    </table>
+    
+
     <h2>4. Штрафы (Повторение из Правил)</h2>
-    <div class="warning-block">
-        <strong style="color: var(--warning-color);">ВАЖНО: Пост-Игровые Штрафы</strong>
-        <ul>
+    <div class="warning-block" style="background-color: rgba(255, 51, 51, 0.1); border: 1px solid var(--color-error); padding: 15px;">
+        <strong style="color: var(--color-error);">ВАЖНО: Пост-Игровые Штрафы</strong>
+        <ul class="content-list" style="list-style: none; padding-left: 0;">
             <li>Нарушение коммуникации после игры (Инициатор): **-10 очков**.</li>
             <li>Нарушение коммуникации после игры (Ответчик): **-5 очков**.</li>
             <li>Отстранение за рецидив: При **более 3 технических нарушений** за год, следует отстранение на период.</li>
         </ul>
     </div>
-    <div style="text-align: center; margin-top: 50px; font-size: 14px; color: var(--text-color);">
-        // END OF FILE // V.0.4 //
+    
+    <div class="footer-note">
+        // LEGION MAFIA DATA PACKET V2.0 // ALL RIGHTS RESERVED 2024 //
     </div>
-
 </div>
 </body>
 </html>
