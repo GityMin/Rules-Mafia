@@ -3,73 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legion Mafia - РОЛИ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Legion Mafia - Игровые Роли</title>
     <style>
-/* ... ПОЛНЫЙ CSS-КОД ИЗ ВАШЕГО ШАБЛОНА ... */
-/* ... (Удален для краткости, но полностью включен в файл) ... */
+        /* === ТЕМНЫЙ РЕГЛАМЕНТ (CSS) - ГЛУБОКИЙ КРАСНЫЙ === */
+        :root {
+            --primary: #d32f2f; /* Глубокий красный */
+            --bg: #121212;
+            --surface: #1e1e1e;
+            --text: #e0e0e0;
+            --border: #333;
+            --accent: #ff5252; /* Яркий красный */
+            --menu-bg: #222; /* Фон меню */
+            
+            /* Цвета для команд и ролей в новом стиле */
+            --role-mafia-color: var(--primary); 
+            --role-civilian-color: #bdbdbd; /* Светлый серый для контраста с черным */
+            --role-sheriff-color: var(--accent); /* Яркий красный */
+        }
 
-/* Дополнительные стили для карточек ролей, адаптированные под новый дизайн */
-.roles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
-}
+        body {
+            font-family: 'Roboto', 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-.role-card {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    border: 1px solid var(--neon-blue);
-    box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            flex-grow: 1;
+            width: calc(100% - 80px);
+        }
 
-.role-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px var(--neon-red);
-}
+        /* Навигационное меню */
+        .top-nav {
+            background-color: var(--menu-bg);
+            border-radius: 6px;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            border: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
 
-.role-header {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2em;
-    text-transform: uppercase;
-    margin: 10px 0;
-    color: var(--neon-red);
-    text-shadow: 0 0 5px var(--neon-red);
-}
+        .top-nav a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 5px 10px;
+            font-weight: bold;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
 
-.role-img {
-    max-width: 100px;
-    height: auto;
-    filter: drop-shadow(0 0 5px var(--neon-blue));
-}
+        .top-nav a:hover {
+            color: var(--primary);
+            background-color: #333;
+        }
+
+        .top-nav a.active {
+            color: #fff;
+            background-color: var(--primary);
+        }
+        
+        /* Логотип и Заголовок */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .logo img {
+            max-width: 200px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(211, 47, 47, 0.3));
+        }
+
+        h1 {
+            font-size: 28px;
+            text-transform: uppercase;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        /* Типографика заголовков */
+        h2 {
+            color: #fff;
+            background: linear-gradient(90deg, rgba(211, 47, 47, 0.2) 0%, transparent 100%);
+            border-left: 4px solid var(--primary);
+            padding: 10px 15px;
+            margin-top: 50px;
+            font-size: 22px;
+        }
+
+        h3 {
+            color: var(--accent);
+            font-size: 18px;
+            margin-top: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        /* Списки и параграфы */
+        ul, ol {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            color: #fff;
+        }
+
+        /* Стили ролей */
+        .team-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .team-title {
+            text-align: center;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid;
+            letter-spacing: 1px;
+        }
+        
+        .red-team-section .team-title { 
+            border-color: var(--role-civilian-color); 
+            color: var(--role-civilian-color); 
+        }
+        .black-team-section .team-title { 
+            border-color: var(--role-mafia-color); 
+            color: var(--role-mafia-color); 
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .role-card {
+            background-color: var(--menu-bg);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+        }
+
+        .role-header {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-top: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid;
+            text-transform: uppercase;
+        }
+        
+        /* Цвета заголовков ролей */
+        .sheriff-card .role-header { color: var(--role-sheriff-color); border-bottom-color: var(--role-sheriff-color); }
+        .mafia-card .role-header, .don-card .role-header { color: var(--role-mafia-color); border-bottom-color: var(--role-mafia-color); }
+        .civilian-card .role-header { color: var(--role-civilian-color); border-bottom-color: var(--role-civilian-color); }
+        
+        .role-img {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+                width: auto;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .top-nav {
+                flex-direction: column;
+            }
+            .top-nav a {
+                margin: 5px 0;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-
+    
     <nav class="top-nav">
         <a href="index.html">КРАТКИЕ ПРАВИЛА</a>
         <a href="podrobnye.html">ПОДРОБНЫЕ ПРАВИЛА</a>
         <a href="roles.html" class="active">РОЛИ</a>
         <a href="timer.html">ТАЙМЕР</a>
-        <a href="rating.html">РЕЙТИНГ & АРХИВ</a>
-        <a href="media.html">МЕДИА</a>
+        <a href="rating.html">РЕЙТИНГ</a>
         <a href="contacts.html">КОНТАКТЫ</a>
     </nav>
 
     <div class="header">
-        <div class="logo"><img src="logo.png" alt="Legion Mafia Logo"></div>
-        <h1>DATA: ИГРОВЫЕ РОЛИ</h1>
+        <div class="logo"><img src="https://placehold.co/200x50/1e1e1e/d32f2f?text=LEGION+MAFIA" alt="Legion Mafia Logo"></div>
+        <h1>КЛЮЧЕВЫЕ ИГРОВЫЕ РОЛИ</h1>
     </div>
 
-    <h2>КРАСНАЯ КОМАНДА (МИРНЫЕ ЖИТЕЛИ)</h2>
-    <div class="footer-sign">
-        by baby_twix 1 and baby_twix 2💘
+    <p><em>В клубе Legion Mafia разыгрывается 10 карт: 7 Красных и 3 Черных. Каждая роль имеет уникальные функции и условия победы.</em></p>
+
+    <h2>КРАСНАЯ КОМАНДА (МИРНЫЕ)</h2>
+    <div class="team-section red-team-section">
+        <div class="team-title">ЦЕЛЬ: УСТРАНЕНИЕ МАФИИ</div>
+        
+        <div class="roles-grid">
+
+            <div class="role-card sheriff-card">
+                <!-- Заменены иконки на плейсхолдеры для единообразия -->
+                <img src="https://placehold.co/100x100/121212/ff5252?text=SHERIFF" alt="Иконка Шерифа" class="role-img" style="border-color: var(--role-sheriff-color);">
+                <div class="role-header">ШЕРИФ (SHERIFF)</div>
+                <p>Единственный проверяющий игрок Красной Команды. Каждую ночь, кроме первой, может проверить **одного** игрока, чтобы узнать его роль (Красный или Черный). Побеждает вместе с Красной Командой.</p>
+            </div>
+
+            <div class="role-card civilian-card">
+                <img src="https://placehold.co/100x100/121212/bdbdbd?text=CIVILIAN" alt="Иконка Мирного Жителя" class="role-img" style="border-color: var(--role-civilian-color);">
+                <div class="role-header">МИРНЫЙ ЖИТЕЛЬ (CIVILIAN)</div>
+                <p>Имеет одну минуту днем для убеждения стола в своей непричастности. Не имеет ночных действий. Побеждает, если вся Черная Команда устранена.</p>
+            </div>
+            
+        </div>
     </div>
+    
+    <h2>ЧЕРНАЯ КОМАНДА (МАФИЯ)</h2>
+    <div class="team-section black-team-section">
+        <div class="team-title">ЦЕЛЬ: УСТАНОВЛЕНИЕ КОНТРОЛЯ</div>
+        
+        <div class="roles-grid">
+            
+            <div class="role-card don-card">
+                <img src="https://placehold.co/100x100/121212/d32f2f?text=DON" alt="Иконка Дона Мафии" class="role-img" style="border-color: var(--role-mafia-color);">
+                <div class="role-header">ДОН МАФИИ (DON)</div>
+                <p>Глава Черной Команды. Участвует в ночном "отстреле". Каждую ночь, кроме первой, ищет **Шерифа**. Лидер, координирующий действия.</p>
+            </div>
+
+            <div class="role-card mafia-card">
+                <img src="https://placehold.co/100x100/121212/d32f2f?text=MAFIA" alt="Иконка Мафии" class="role-img" style="border-color: var(--role-mafia-color);">
+                <div class="role-header">МАФИЯ (MAFIA)</div>
+                <p>Участвует в ночном "отстреле". Для успешного устранения, все черные игроки (Дон и Мафия) должны указать одну и ту же цель. Работает в тесной связке с Доном.</p>
+            </div>
+            
+        </div>
+    </div>
+    
 </div>
+
+<footer>
+    by baby_twix 1 and baby_twix 2💘
+</footer>
+
 </body>
 </html>
