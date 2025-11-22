@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Legion Mafia - Контакты</title>
+    <style>
+        /* === КИБЕРПАНК СТИЛИ (CSS) - ЦИФРОВАЯ МАФИЯ === */
+        :root {
+            --background-color: #0d0d1a;
+            --text-color: #00ffc8;
+            --header-color: #ff007f;
+            --accent-color: #00ffff;
+            --warning-color: #ffcc00;
+            --font-family-cyb: 'Share Tech Mono', monospace, Arial, sans-serif;
+            --container-bg: #1a0a29;
+            --border: #424242;
+        }
+
+        body {
+            font-family: var(--font-family-cyb);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px 20px;
+            background-color: var(--container-bg);
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            flex-grow: 1;
+        }
+        
+        /* === Шапка/Логотип === */
+        .header {
+            text-align: center;
+            border-bottom: 2px dashed var(--header-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 28px;
+            text-transform: uppercase;
+            color: var(--header-color);
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.8);
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        /* === Заголовки Контента === */
+        h2 {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+            border-left: 5px solid var(--header-color);
+            background-color: rgba(255, 0, 127, 0.05);
+            padding: 10px 15px;
+            margin-top: 40px;
+            font-size: 22px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            color: var(--text-color);
+            border-bottom: 1px dashed var(--text-color);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 18px;
+        }
+
+        /* === Навигация (Меню) === */
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            background-color: #2c0e3e; 
+            border-bottom: 3px solid var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            padding: 10px 0;
+        }
+
+        .top-nav a {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            padding: 8px 15px;
+            margin: 0 10px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 255, 200, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .top-nav a:hover {
+            background-color: var(--header-color);
+            color: var(--background-color);
+            border-color: var(--header-color);
+            box-shadow: 0 0 15px var(--header-color);
+        }
+
+        .top-nav a.active {
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+        
+        /* === Контентные элементы === */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 20px;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 15px;
+            background-color: rgba(0, 255, 255, 0.05);
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        
+        ul li strong {
+            color: var(--header-color);
+            text-transform: uppercase;
+        }
+
+        .contact-link {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-link:hover {
+            color: var(--header-color);
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <nav class="top-nav">
+        <a href="index.html">КРАТКИЕ ПРАВИЛА</a>
+        <a href="podrobnye.html">ПОДРОБНЫЕ ПРАВИЛА</a>
+        <a href="rating.html">РЕЙТИНГ & АРХИВ</a> 
+        <a href="contacts.html" class="active">КОНТАКТЫ</a>
+    </nav>
+    
+    <div class="header">
+        <div class="logo">
+            <h1 style="font-size: 36px;">LEGION MAFIA</h1>
+            <p style="color: var(--accent-color); margin-top: 5px;">// CONNECTION POINT // CONTACTS // </p>
+        </div>
+        <h1>СВЯЗЬ С КЛУБОМ</h1>
+    </div>
+
+    <h2>Служба Поддержки и Администрация</h2>
+    <p>Для записи на игры, решения спорных ситуаций, вопросов по рейтингу или сотрудничеству используйте следующие каналы связи:</p>
+
+    <ul>
+        <li>
+            <strong>Администратор (Запись на Игры)</strong><br>
+            <a href="mailto:admin@legionmafia.com" class="contact-link">admin@legionmafia.com</a> | Telegram: @LegionMafia_Game
+        </li>
+        <li>
+            <strong>Судейский Состав (Технические вопросы, ППК)</strong><br>
+            <a href="mailto:judges@legionmafia.com" class="contact-link">judges@legionmafia.com</a>
+        </li>
+        <li>
+            <strong>Основной Канал Discord/Telegram</strong><br>
+            <a href="#" class="contact-link" style="color: var(--header-color); text-decoration: underline;">Присоединиться к нашему Discord-серверу</a>
+        </li>
+    </ul>
+
+    <h2>Информация о Клубе</h2>
+    <p>Мы открыты для сотрудничества и готовы ответить на любые ваши вопросы.</p>
+    <p>Наш клуб оперирует в онлайн-формате, что позволяет нам объединять игроков со всего мира.</p>
+    
+    <div class="warning-block">
+        <strong style="color: var(--warning-color);">ВАЖНОЕ ПРИМЕЧАНИЕ</strong>
+        <p>Техническая поддержка по рейтингу и правилам доступна ежедневно с 12:00 до 22:00 (EET).</p>
+    </div>
+    <div style="text-align: center; margin-top: 50px; font-size: 14px; color: var(--text-color);">
+        // DATA LINK ESTABLISHED // THANK YOU //
+    </div>
+
+</div>
+</body>
+</html>
