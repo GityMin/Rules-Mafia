@@ -3,231 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <title>Legion Mafia - Игровой Таймер</title>
-    <style>
-        /* === КИБЕРПАНК СТИЛИ (CSS) - ЦИФРОВАЯ МАФИЯ === */
-        :root {
-            --background-color: #0d0d1a;
-            --text-color: #00ffc8;       /* Ярко-зеленый/бирюзовый */
-            --header-color: #ff007f;     /* Ярко-розовый/фуксия */
-            --accent-color: #00ffff;     /* Голубой акцент */
-            --warning-color: #ffcc00;
-            --font-family-cyb: 'Share Tech Mono', monospace, Arial, sans-serif;
-            --container-bg: #1a0a29;
-            --timer-bg: #050510;         /* Очень темный фон для таймера */
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --neon-red: #ff003c;
+        --neon-blue: #00f3ff;
+        --bg-color: #050505;
+        --panel-bg: rgba(20, 20, 20, 0.95);
+        --text-main: #e0e0e0;
+        --grid-color: rgba(0, 243, 255, 0.05);
+    }
 
-        body {
-            font-family: var(--font-family-cyb);
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    body {
+        font-family: 'Share Tech Mono', monospace;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        margin: 0;
+        padding: 40px;
+        min-height: 100vh;
+        background-image: 
+            linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        background-size: 30px 30px;
+        position: relative;
+        overflow-x: hidden;
+    }
 
-        .container {
-            width: 90vw;
-            max-width: 600px;
-            padding: 40px 20px;
-            background-color: var(--container-bg);
-            border: 2px solid var(--accent-color);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
-            border-radius: 12px;
-            text-align: center;
-        }
+    /* Сканлайны */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
+        pointer-events: none;
+        z-index: 999;
+    }
 
-        h1 {
-            color: var(--header-color);
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(255, 0, 127, 0.8);
-            margin-bottom: 30px;
-        }
+    /* Анимация появления */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-        #timer-display {
-            font-size: 8em; /* Большой размер для таймера */
-            font-weight: bold;
-            letter-spacing: 5px;
-            padding: 20px;
-            margin: 30px 0;
-            background-color: var(--timer-bg);
-            border: 2px solid var(--text-color);
-            border-radius: 8px;
-            box-shadow: inset 0 0 20px rgba(0, 255, 200, 0.3);
-            transition: color 0.3s, text-shadow 0.3s, border-color 0.3s;
-        }
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: var(--panel-bg);
+        border: 1px solid var(--neon-red);
+        box-shadow: 0 0 20px rgba(255, 0, 60, 0.15), inset 0 0 20px rgba(255, 0, 60, 0.05);
+        padding: 50px;
+        position: relative;
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+        animation: fadeInUp 0.8s ease-out;
+    }
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
+    .container::after {
+        content: "";
+        position: absolute;
+        bottom: 5px; right: 5px;
+        width: 30px; height: 30px;
+        border-bottom: 2px solid var(--neon-blue);
+        border-right: 2px solid var(--neon-blue);
+    }
 
-        .control-btn {
-            background-color: var(--header-color);
-            color: var(--background-color);
-            border: none;
-            padding: 12px 25px;
-            font-size: 1.1em;
-            font-family: var(--font-family-cyb);
-            text-transform: uppercase;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
-        }
+    /* МЕНЮ */
+    .top-nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+    }
 
-        .control-btn:hover {
-            background-color: #ff3399;
-            box-shadow: 0 4px 20px rgba(255, 0, 127, 0.8);
-        }
+    .top-nav a {
+        text-decoration: none;
+        color: var(--neon-blue);
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        padding: 15px 30px;
+        border: 1px solid var(--neon-blue);
+        background: rgba(0, 243, 255, 0.05);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s ease;
+    }
 
-        .control-btn:disabled {
-            background-color: #333;
-            color: #666;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
+    .top-nav a:hover {
+        background: var(--neon-blue);
+        color: #000;
+        box-shadow: 0 0 25px var(--neon-blue);
+        transform: translateY(-2px);
+    }
 
-        @media (max-width: 600px) {
-            #timer-display {
-                font-size: 5em;
-            }
-            .controls {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-    </style>
+    .top-nav a.active {
+        color: #000;
+        background: var(--neon-red);
+        border-color: var(--neon-red);
+        box-shadow: 0 0 25px var(--neon-red);
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 50px;
+        border-bottom: 2px solid var(--neon-red);
+        padding-bottom: 20px;
+    }
+
+    .logo img {
+        max-width: 220px;
+        margin-bottom: 20px;
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+    }
+
+    h1 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.5em;
+        color: #fff;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 0px var(--neon-red);
+        letter-spacing: 4px;
+        margin: 0;
+    }
+
+    h2 {
+        font-family: 'Orbitron', sans-serif;
+        color: var(--neon-blue);
+        font-size: 1.8em;
+        border-left: 5px solid var(--neon-red);
+        padding-left: 20px;
+        margin-top: 60px;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        background: linear-gradient(90deg, rgba(255, 0, 60, 0.1) 0%, transparent 100%);
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    h3 {
+        font-family: 'Orbitron', sans-serif;
+        color: #fff;
+        font-size: 1.4em;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        border-bottom: 1px dashed var(--neon-blue);
+        padding-bottom: 5px;
+        display: inline-block;
+    }
+
+    p {
+        font-size: 1.1em;
+        margin-bottom: 12px;
+        line-height: 1.6;
+    }
+
+    strong { color: var(--neon-red); }
+
+    /* Таблицы */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 14px;
+        border: 1px solid #333;
+    }
+
+    th, td {
+        border: 1px solid #444;
+        padding: 15px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    th {
+        background-color: rgba(255, 0, 60, 0.1);
+        color: var(--neon-blue);
+        text-transform: uppercase;
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 1px;
+    }
+
+    tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.02); }
+
+    /* Выделение наказаний */
+    .penalty {
+        color: var(--neon-red);
+        font-weight: bold;
+    }
+
+    .footer-sign {
+        text-align: center; 
+        margin-top: 80px; 
+        padding-top: 20px;
+        border-top: 1px solid #333;
+        font-size: 14px; 
+        color: var(--neon-blue);
+        font-family: 'Orbitron', sans-serif;
+        opacity: 0.8;
+        letter-spacing: 1px;
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Игровой Таймер</h1>
-        
-        <!-- Аудиоэлемент для звукового сигнала bell.mp3 -->
-        <audio id="timer-bell" src="bell.mp3" preload="auto" onended="this.currentTime=0;"></audio>
 
-        <div id="timer-display">01:00</div>
+<div class="container">
 
-        <div class="controls">
-            <button id="start-btn" class="control-btn">Старт</button>
-            <button id="pause-btn" class="control-btn" disabled>Пауза</button>
-            <button id="reset-btn" class="control-btn">Сброс (1:00)</button>
-        </div>
-        
-        <div style="margin-top: 20px; font-size: 0.8em; color: var(--warning-color);">
-            Таймер по умолчанию: 60 секунд.
-        </div>
+    <nav class="top-nav">
+        <a href="index.html">ПРАВИЛА (КРАТКО)</a>
+        <a href="podrobnye.html">ПРАВИЛА (ПОДРОБНО)</a>
+        <a href="roles.html">РОЛИ</a>
+        <a href="timer.html" class="active">ТАЙМЕР</a>
+        <a href="rating.html">РЕЙТИНГ & АРХИВ</a> 
+        <a href="contacts.html">КОНТАКТЫ</a>
+    </nav>
+    
+    <div class="header">
+        <h1 style="font-size: 36px;">СИСТЕМА ОТЧЕТА ВРЕМЕНИ</h1>
+        <p style="color: var(--accent-color); margin-top: 5px;">// CURRENT OPERATIONAL CYCLE // DAY PHASE //</p>
     </div>
 
-    <script>
-        // Инициализация переменных
-        const display = document.getElementById('timer-display');
-        const startBtn = document.getElementById('start-btn');
-        const pauseBtn = document.getElementById('pause-btn');
-        const resetBtn = document.getElementById('reset-btn');
-        const bell = document.getElementById('timer-bell'); // Получаем элемент аудио
+    <div class="timer-zone">
+        <div class="timer-info">
+            ВРЕМЯ НА ВЫСКАЗЫВАНИЕ (60 СЕКУНД)
+        </div>
+        <div id="display">01:00</div>
+        <div class="control-buttons">
+            <button id="start-btn">СТАРТ</button>
+            <button id="pause-btn">ПАУЗА</button>
+            <button id="reset-btn">СБРОС (60)</button>
+        </div>
+    </div>
+    
+    <div style="margin-top: 40px; text-align: center; color: var(--text-color);">
+        <p>Используйте СТАРТ для начала минуты игрока, ПАУЗА для временной остановки (например, для выставления кандидатуры), и СБРОС для следующего игрока.</p>
+    </div>
 
-        let time = 60; // Начальное время в секундах (60 секунд)
-        let timerInterval = null;
+</div>
 
-        /**
-         * Обновляет отображение таймера и управляет стилями/звуком.
-         */
-        function updateDisplay() {
-            const minutes = String(Math.floor(time / 60)).padStart(2, '0');
-            const seconds = String(time % 60).padStart(2, '0');
-            display.textContent = `${minutes}:${seconds}`;
+<script>
+    // === ЛОГИКА ТАЙМЕРА (JavaScript) ===
+    let time = 60; // 60 секунд = 1 минута
+    let timerInterval;
+    const display = document.getElementById('display');
+    const startBtn = document.getElementById('start-btn');
+    const pauseBtn = document.getElementById('pause-btn');
+    const resetBtn = document.getElementById('reset-btn');
 
-            // Изменение цвета и тени при малом времени
-            if (time <= 10 && time > 0) {
-                display.style.color = 'var(--warning-color)';
-                display.style.textShadow = '0 0 20px var(--warning-color), 0 0 40px rgba(255, 204, 0, 0.8)';
-            } else if (time === 0) {
-                display.style.color = 'var(--header-color)';
-                display.style.textShadow = '0 0 20px var(--header-color), 0 0 40px rgba(255, 0, 127, 0.8)';
-            }
-             else {
-                display.style.color = 'var(--text-color)';
-                display.style.textShadow = '0 0 20px var(--text-color), 0 0 40px rgba(0, 255, 200, 0.8)';
-            }
-            
-            if (time === 0) {
+    function updateDisplay() {
+        const seconds = time % 60;
+        const minutes = Math.floor(time / 60);
+        // Форматирование как MM:SS
+        const displayTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        display.textContent = displayTime;
+
+        // Визуальное предупреждение
+        if (time <= 10) {
+            display.style.color = 'var(--warning-color)'; // Желтый/Оранжевый
+            display.style.textShadow = '0 0 20px var(--warning-color), 0 0 40px rgba(255, 204, 0, 0.8)';
+        } else {
+            display.style.color = 'var(--text-color)'; // Бирюзовый
+            display.style.textShadow = '0 0 20px var(--text-color), 0 0 40px rgba(0, 255, 200, 0.8)';
+        }
+        
+        if (time === 0) {
+            clearInterval(timerInterval);
+            display.textContent = "00:00";
+            // Звуковой сигнал (если нужно, можно добавить <audio> элемент)
+            startBtn.disabled = false;
+        }
+    }
+
+    function startTimer() {
+        if (timerInterval) return;
+        timerInterval = setInterval(() => {
+            if (time > 0) {
+                time--;
+                updateDisplay();
+            } else {
                 clearInterval(timerInterval);
                 timerInterval = null;
-                
-                // ВОСПРОИЗВЕДЕНИЕ ЗВУКА bell.mp3
-                try {
-                    // Сбрасываем звук на начало перед воспроизведением
-                    bell.currentTime = 0; 
-                    bell.play();
-                } catch (e) {
-                    console.error("Не удалось воспроизвести звук. Убедитесь, что 'bell.mp3' доступен.", e);
-                }
-                
-                startBtn.disabled = false;
-                pauseBtn.disabled = true;
             }
-        }
+        }, 1000);
+        startBtn.disabled = true;
+        pauseBtn.disabled = false;
+    }
 
-        /**
-         * Запускает таймер.
-         */
-        function startTimer() {
-            if (timerInterval) return;
-            // Если время 0, сбрасываем на 60 перед стартом
-            if (time === 0) {
-                time = 60;
-                updateDisplay();
-            }
-            
-            timerInterval = setInterval(() => {
-                if (time > 0) {
-                    time--;
-                    updateDisplay();
-                }
-            }, 1000);
-            startBtn.disabled = true;
-            pauseBtn.disabled = false;
-        }
+    function pauseTimer() {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        startBtn.disabled = false;
+        pauseBtn.disabled = true;
+    }
 
-        /**
-         * Приостанавливает таймер.
-         */
-        function pauseTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            startBtn.disabled = false;
-            pauseBtn.disabled = true;
-        }
+    function resetTimer() {
+        pauseTimer();
+        time = 60;
+        updateDisplay();
+        startBtn.disabled = false;
+        pauseBtn.disabled = true;
+    }
 
-        /**
-         * Сбрасывает таймер на начальное значение.
-         */
-        function resetTimer() {
-            pauseTimer();
-            time = 60;
-            updateDisplay();
-            startBtn.disabled = false;
-            pauseBtn.disabled = true;
-            // Сброс аудио
-            bell.currentTime = 0; 
-            bell.pause();
-        }
+    startBtn.addEventListener('click', startTimer);
+    pauseBtn.addEventListener('click', pauseTimer);
+    resetBtn.addEventListener('click', resetTimer);
 
-        // Привязка обработчиков событий к кнопкам
-        startBtn.addEventListener('click', startTimer);
-        pauseBtn.addEventListener('click', pauseTimer);
-        resetBtn.addEventListener('click', resetTimer);
-
-        // Инициализация при загрузке
-        window.onload = function() {
-            updateDisplay();
-        }
-    </script>
+    // Инициализация при загрузке
+    updateDisplay();
+    pauseBtn.disabled = true; 
+</script>
 </body>
 </html>
