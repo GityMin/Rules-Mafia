@@ -4,315 +4,315 @@
     <meta charset="UTF-8">
     <title>Legion Mafia - Игровой Таймер</title>
     <style>
-        <style>
-    /* ========================================= */
-    /* === СТИЛЬ "Y2K / FUTURISTIC GLITCH" === */
-    /* ========================================= */
-    
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+        /* ========================================= */
+        /* === СТИЛЬ "Y2K / FUTURISTIC GLITCH" === */
+        /* ========================================= */
+        
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
-    :root {
-        --color-main: #39FF14;      /* Неоновый зеленый (Main Glow) */
-        --color-accent: #00FFFF;    /* Кибер-голубой */
-        --color-background: #0A0A1F; /* Очень темный фон */
-        --color-dark: #1F1F3D;      /* Темный контейнер */
-        --color-error: #FF3333;     /* Глитч-красный */
-        --font-header: 'Orbitron', sans-serif;
-        --font-body: 'Share Tech Mono', monospace;
-    }
+        :root {
+            --color-main: #39FF14;      /* Неоновый зеленый (Main Glow) */
+            --color-accent: #00FFFF;    /* Кибер-голубой */
+            --color-background: #0A0A1F; /* Очень темный фон */
+            --color-dark: #1F1F3D;      /* Темный контейнер */
+            --color-error: #FF3333;     /* Глитч-красный */
+            --font-header: 'Orbitron', sans-serif;
+            --font-body: 'Share Tech Mono', monospace;
+            
+            /* СОХРАНЕННЫЕ ПЕРЕМЕННЫЕ ДЛЯ ТАЙМЕРА */
+            --warning-color: #ffcc00;
+            --timer-bg: #050510;
+        }
 
-    /* === ОБЩИЕ СТИЛИ И ФОН === */
-    body {
-        font-family: var(--font-body);
-        background-color: var(--color-background);
-        color: var(--color-main);
-        line-height: 1.6;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        overflow-x: hidden; /* Защита от горизонтального скролла из-за глитча */
-    }
+        /* === ОБЩИЕ СТИЛИ И ФОН === */
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-background);
+            color: var(--color-main);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden; /* Защита от горизонтального скролла из-за глитча */
+        }
 
-    .container {
-        max-width: 1100px;
-        margin: 50px auto;
-        padding: 50px 30px;
-        background-color: var(--color-dark);
-        border: 2px solid var(--color-accent);
-        box-shadow: 0 0 30px rgba(0, 255, 255, 0.5), inset 0 0 15px rgba(0, 255, 255, 0.3);
-        position: relative;
-        z-index: 10;
-        flex-grow: 1;
-        transition: transform 0.3s ease;
-    }
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 50px 30px;
+            background-color: var(--color-dark);
+            border: 2px solid var(--color-accent);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5), inset 0 0 15px rgba(0, 255, 255, 0.3);
+            position: relative;
+            z-index: 10;
+            flex-grow: 1;
+            transition: transform 0.3s ease;
+        }
 
-    /* === ЗАГОЛОВКИ И ГЛИТЧ-ЭФФЕКТ === */
-    h1, h2 {
-        font-family: var(--font-header);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        position: relative;
-        color: var(--color-main);
-        text-shadow: 0 0 5px var(--color-main);
-    }
-
-    h1 {
-        font-size: 38px;
-        border-bottom: 3px solid var(--color-error);
-        padding-bottom: 10px;
-        margin-bottom: 30px;
-    }
-
-    h2 {
-        font-size: 24px;
-        color: var(--color-accent);
-        text-shadow: 0 0 8px var(--color-accent);
-        border-left: 5px solid var(--color-main);
-        padding: 10px 15px;
-        margin-top: 40px;
-    }
-
-    /* АНИМАЦИЯ ГЛИТЧА ДЛЯ ЗАГОЛОВКОВ */
-    .glitch-text::before,
-    .glitch-text::after {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        text-shadow: 0 0 5px var(--color-main);
-        background: var(--color-dark);
-        clip: rect(0, 900px, 0, 0);
-    }
-
-    .glitch-text:hover::before {
-        text-shadow: 2px 0 var(--color-error);
-        clip: rect(44px, 900px, 56px, 0);
-        animation: glitch-anim 0.8s infinite alternate-reverse;
-    }
-
-    .glitch-text:hover::after {
-        text-shadow: -2px 0 var(--color-accent);
-        clip: rect(80px, 900px, 92px, 0);
-        animation: glitch-anim 0.7s infinite alternate-reverse;
-    }
-
-    @keyframes glitch-anim {
-        0% { clip: rect(20px, 900px, 30px, 0); transform: skew(0.5deg); }
-        25% { clip: rect(60px, 900px, 70px, 0); transform: skew(-0.5deg); }
-        50% { clip: rect(80px, 900px, 90px, 0); transform: skew(1deg); }
-        75% { clip: rect(10px, 900px, 20px, 0); transform: skew(-1deg); }
-        100% { clip: rect(40px, 900px, 50px, 0); transform: skew(0.5deg); }
-    }
-
-    /* === СТАНДАРТНАЯ НАВИГАЦИЯ (ОСНОВНОЕ МЕНЮ) === */
-    .top-nav {
-        display: flex;
-        justify-content: center;
-        background-color: var(--color-dark); 
-        border: 2px solid var(--color-main);
-        box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
-        padding: 10px 0;
-        margin-bottom: 30px;
-        flex-wrap: wrap;
-        position: sticky;
-        top: 0;
-        z-index: 50;
-    }
-
-    .top-nav a {
-        background-color: transparent;
-        color: var(--color-main);
-        border: 1px solid var(--color-main);
-        padding: 10px 18px;
-        margin: 5px;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
-        letter-spacing: 1px;
-        position: relative;
-    }
-
-    .top-nav a:hover {
-        background-color: var(--color-accent);
-        color: var(--color-background);
-        border-color: var(--color-accent);
-        box-shadow: 0 0 20px var(--color-accent);
-        transform: translateY(-2px);
-    }
-
-    .top-nav a.active {
-        background-color: var(--color-error);
-        color: var(--color-background);
-        border-color: var(--color-error);
-        box-shadow: 0 0 20px var(--color-error);
-    }
-
-    /* === МЕДИА-КНОПКИ (СУПЕР-КРУТЫЕ ССЫЛКИ) === */
-    .media-links {
-        display: flex;
-        justify-content: center;
-        margin: 40px 0;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
-
-    .media-btn {
-        font-family: var(--font-header);
-        padding: 15px 30px;
-        text-transform: uppercase;
-        font-weight: 700;
-        text-decoration: none;
-        position: relative;
-        overflow: hidden;
-        transition: all 0.4s ease;
-        border: none;
-        cursor: pointer;
-    }
-
-    .media-btn::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.1);
-        transition: all 0.5s ease;
-        z-index: 1;
-        transform: skewX(-20deg);
-    }
-
-    .media-btn:hover::before {
-        left: 100%;
-    }
-
-    /* Специфические стили для каждой кнопки */
-    .discord-btn {
-        background-color: #5865F2; /* Discord Blue */
-        color: white;
-        box-shadow: 0 0 20px #5865F2;
-    }
-    .youtube-btn {
-        background-color: #FF0000; /* YouTube Red */
-        color: white;
-        box-shadow: 0 0 20px #FF0000;
-    }
-    .telegram-btn {
-        background-color: #0088CC; /* Telegram Blue */
-        color: white;
-        box-shadow: 0 0 20px #0088CC;
-    }
-
-    /* Текст и контент */
-    .content-list li {
-        margin-bottom: 15px;
-        border-left: 3px solid var(--color-accent);
-        padding-left: 15px;
-        transition: all 0.3s;
-    }
-
-    .content-list li:hover {
-        background-color: rgba(57, 255, 20, 0.05);
-        border-left-color: var(--color-main);
-    }
-
-    /* === ОБНОВЛЕНИЕ ДЛЯ ФОРМ И ТАБЛИЦ === */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 25px 0;
-        border: 2px solid var(--color-main);
-        box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
-    }
-
-    th, td {
-        border: 1px dashed var(--color-accent);
-        padding: 12px;
-        text-align: left;
-    }
-
-    th {
-        background-color: var(--color-dark);
-        color: var(--color-error);
-        text-transform: uppercase;
-        font-family: var(--font-header);
-        text-shadow: 0 0 5px var(--color-error);
-    }
-
-    tr:nth-child(even) {
-        background-color: rgba(57, 255, 20, 0.05);
-    }
-    
-    .footer-note {
-        text-align: center;
-        margin-top: 50px;
-        padding-top: 20px;
-        border-top: 1px dashed var(--color-accent);
-        font-size: 12px;
-        color: var(--color-accent);
-    }
-
-    /* === СТИЛЬ ТАЙМЕРА === */
-    .timer-zone {
-        background-color: var(--color-background);
-        border: 4px solid var(--color-main);
-        box-shadow: 0 0 40px var(--color-main);
-    }
-    #display {
-        font-family: var(--font-header);
-        color: var(--color-main);
-        text-shadow: 0 0 30px var(--color-main), 0 0 60px rgba(57, 255, 20, 0.8);
-    }
-    .control-buttons button {
-        border-radius: 5px;
-        transform: perspective(1px) translateZ(0); /* 3D hover prep */
-        box-shadow: 0 0 10px var(--color-accent);
-        transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    }
-    .control-buttons button:hover {
-        transform: scale(1.05) translateY(-3px);
-    }
-</style>
-
-        /* === Кнопки управления === */
-        .control-buttons button {
-            background-color: var(--accent-color);
-            color: var(--background-color);
-            border: none;
-            padding: 15px 30px;
-            margin: 0 15px;
-            font-size: 20px;
-            font-family: var(--font-family-cyb);
+        /* === ЗАГОЛОВКИ И ГЛИТЧ-ЭФФЕКТ === */
+        h1, h2 {
+            font-family: var(--font-header);
             text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            color: var(--color-main);
+            text-shadow: 0 0 5px var(--color-main);
+        }
+
+        h1 {
+            font-size: 38px;
+            border-bottom: 3px solid var(--color-error);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: var(--color-accent);
+            text-shadow: 0 0 8px var(--color-accent);
+            border-left: 5px solid var(--color-main);
+            padding: 10px 15px;
+            margin-top: 40px;
+        }
+
+        /* АНИМАЦИЯ ГЛИТЧА ДЛЯ ЗАГОЛОВКОВ */
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-shadow: 0 0 5px var(--color-main);
+            background: var(--color-dark);
+            clip: rect(0, 900px, 0, 0);
+        }
+
+        .glitch-text:hover::before {
+            text-shadow: 2px 0 var(--color-error);
+            clip: rect(44px, 900px, 56px, 0);
+            animation: glitch-anim 0.8s infinite alternate-reverse;
+        }
+
+        .glitch-text:hover::after {
+            text-shadow: -2px 0 var(--color-accent);
+            clip: rect(80px, 900px, 92px, 0);
+            animation: glitch-anim 0.7s infinite alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(20px, 900px, 30px, 0); transform: skew(0.5deg); }
+            25% { clip: rect(60px, 900px, 70px, 0); transform: skew(-0.5deg); }
+            50% { clip: rect(80px, 900px, 90px, 0); transform: skew(1deg); }
+            75% { clip: rect(10px, 900px, 20px, 0); transform: skew(-1deg); }
+            100% { clip: rect(40px, 900px, 50px, 0); transform: skew(0.5deg); }
+        }
+
+        /* === СТАНДАРТНАЯ НАВИГАЦИЯ (ОСНОВНОЕ МЕНЮ) === */
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--color-dark); 
+            border: 2px solid var(--color-main);
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
+            padding: 10px 0;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .top-nav a {
+            background-color: transparent;
+            color: var(--color-main);
+            border: 1px solid var(--color-main);
+            padding: 10px 18px;
+            margin: 5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .top-nav a:hover {
+            background-color: var(--color-accent);
+            color: var(--color-background);
+            border-color: var(--color-accent);
+            box-shadow: 0 0 20px var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .top-nav a.active {
+            background-color: var(--color-error);
+            color: var(--color-background);
+            border-color: var(--color-error);
+            box-shadow: 0 0 20px var(--color-error);
+        }
+
+        /* === МЕДИА-КНОПКИ (СУПЕР-КРУТЫЕ ССЫЛКИ) === */
+        .media-links {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .media-btn {
+            font-family: var(--font-header);
+            padding: 15px 30px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: none;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 10px var(--accent-color);
-            border-radius: 0; /* Киберпанк стиль */
         }
 
+        .media-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            z-index: 1;
+            transform: skewX(-20deg);
+        }
+
+        .media-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Специфические стили для каждой кнопки */
+        .discord-btn {
+            background-color: #5865F2; /* Discord Blue */
+            color: white;
+            box-shadow: 0 0 20px #5865F2;
+        }
+        .youtube-btn {
+            background-color: #FF0000; /* YouTube Red */
+            color: white;
+            box-shadow: 0 0 20px #FF0000;
+        }
+        .telegram-btn {
+            background-color: #0088CC; /* Telegram Blue */
+            color: white;
+            box-shadow: 0 0 20px #0088CC;
+        }
+
+        /* Текст и контент */
+        .content-list li {
+            margin-bottom: 15px;
+            border-left: 3px solid var(--color-accent);
+            padding-left: 15px;
+            transition: all 0.3s;
+        }
+
+        .content-list li:hover {
+            background-color: rgba(57, 255, 20, 0.05);
+            border-left-color: var(--color-main);
+        }
+
+        /* === ОБНОВЛЕНИЕ ДЛЯ ФОРМ И ТАБЛИЦ === */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border: 2px solid var(--color-main);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
+        }
+
+        th, td {
+            border: 1px dashed var(--color-accent);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--color-dark);
+            color: var(--color-error);
+            text-transform: uppercase;
+            font-family: var(--font-header);
+            text-shadow: 0 0 5px var(--color-error);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(57, 255, 20, 0.05);
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--color-accent);
+            font-size: 12px;
+            color: var(--color-accent);
+        }
+
+        /* === СТИЛЬ ТАЙМЕРА (ПЕРЕОПРЕДЕЛЕН) === */
+        .timer-zone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 40px;
+            
+            /* Унаследовано из нового CSS: */
+            background-color: var(--color-background);
+            border: 4px solid var(--color-main);
+            box-shadow: 0 0 40px var(--color-main);
+        }
+        
+        #display {
+            font-size: 80px;
+            margin-bottom: 30px;
+            /* Унаследовано из нового CSS: */
+            font-family: var(--font-header);
+            color: var(--color-main);
+            text-shadow: 0 0 30px var(--color-main), 0 0 60px rgba(57, 255, 20, 0.8);
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .control-buttons button {
+            /* Унаследовано из нового CSS: */
+            padding: 15px 30px;
+            font-size: 18px;
+            font-family: var(--font-header);
+            background-color: var(--color-accent);
+            color: var(--color-background);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+
+            border-radius: 5px;
+            transform: perspective(1px) translateZ(0); /* 3D hover prep */
+            box-shadow: 0 0 10px var(--color-accent);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
         .control-buttons button:hover {
-            background-color: var(--header-color);
-            box-shadow: 0 0 20px var(--header-color);
+            transform: scale(1.05) translateY(-3px);
+            background-color: var(--color-main);
+            box-shadow: 0 0 20px var(--color-main);
         }
-
-        #reset-btn {
-            background-color: #333;
-            color: var(--text-color);
-            box-shadow: 0 0 10px #333;
-            border: 1px solid var(--text-color);
-        }
-
-        #reset-btn:hover {
-            background-color: var(--container-bg);
-            box-shadow: 0 0 15px var(--text-color);
-        }
-
     </style>
 </head>
 <body>
@@ -328,58 +328,61 @@
         <a href="contacts.html">КОНТАКТЫ</a>
     </nav>
     
-    <div class="header">
-        <h1 style="font-size: 36px;">СИСТЕМА ОТЧЕТА ВРЕМЕНИ</h1>
-        <p style="color: var(--accent-color); margin-top: 5px;">// CURRENT OPERATIONAL CYCLE // DAY PHASE //</p>
+    <div class="header" style="text-align: center;">
+        <h1 class="glitch-text" data-text="ИГРОВОЙ ТАЙМЕР">ИГРОВОЙ ТАЙМЕР</h1>
+        <p style="color: var(--color-accent); margin-top: -20px; font-size: 14px;">// SESSION CLOCK // TIME MANAGEMENT SYSTEM // </p>
     </div>
 
     <div class="timer-zone">
-        <div class="timer-info">
-            ВРЕМЯ НА ВЫСКАЗЫВАНИЕ (60 СЕКУНД)
-        </div>
         <div id="display">01:00</div>
         <div class="control-buttons">
-            <button id="start-btn">СТАРТ</button>
-            <button id="pause-btn">ПАУЗА</button>
-            <button id="reset-btn">СБРОС (60)</button>
+            <button id="startBtn">СТАРТ</button>
+            <button id="pauseBtn" disabled>ПАУЗА</button>
+            <button id="resetBtn">СБРОС (1 мин)</button>
         </div>
     </div>
-    
-    <div style="margin-top: 40px; text-align: center; color: var(--text-color);">
-        <p>Используйте СТАРТ для начала минуты игрока, ПАУЗА для временной остановки (например, для выставления кандидатуры), и СБРОС для следующего игрока.</p>
-    </div>
 
+    <h2>ИНСТРУКЦИЯ ПО ТАЙМЕРУ</h2>
+    <ul class="content-list" style="list-style: none; padding-left: 0;">
+        <li>Кнопка **СТАРТ** запускает отсчет времени.</li>
+        <li>Кнопка **ПАУЗА** временно останавливает таймер.</li>
+        <li>Кнопка **СБРОС (1 мин)** возвращает таймер на 60 секунд.</li>
+        <li>Когда остается **10 секунд**, таймер меняет цвет на предупреждающий (**Желтый**), чтобы привлечь внимание.</li>
+        <li>Таймер использует время **1 минута** (60 секунд) для стандартной речи игрока.</li>
+    </ul>
+
+    <div class="footer-note">
+        // LEGION MAFIA DATA PACKET V2.0 // ALL RIGHTS RESERVED 2024 //
+    </div>
 </div>
 
 <script>
-    // === ЛОГИКА ТАЙМЕРА (JavaScript) ===
-    let time = 60; // 60 секунд = 1 минута
-    let timerInterval;
     const display = document.getElementById('display');
-    const startBtn = document.getElementById('start-btn');
-    const pauseBtn = document.getElementById('pause-btn');
-    const resetBtn = document.getElementById('reset-btn');
+    const startBtn = document.getElementById('startBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    
+    let time = 60; // 1 минута
+    let timerInterval = null;
 
     function updateDisplay() {
-        const seconds = time % 60;
-        const minutes = Math.floor(time / 60);
-        // Форматирование как MM:SS
-        const displayTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        display.textContent = displayTime;
+        const minutes = String(Math.floor(time / 60)).padStart(2, '0');
+        const seconds = String(time % 60).padStart(2, '0');
+        display.textContent = `${minutes}:${seconds}`;
 
-        // Визуальное предупреждение
-        if (time <= 10) {
-            display.style.color = 'var(--warning-color)'; // Желтый/Оранжевый
+        // Логика смены цвета для предупреждения (менее 10 секунд)
+        if (time <= 10 && time > 0) {
+            display.style.color = 'var(--warning-color)'; // Желтый
             display.style.textShadow = '0 0 20px var(--warning-color), 0 0 40px rgba(255, 204, 0, 0.8)';
         } else {
-            display.style.color = 'var(--text-color)'; // Бирюзовый
-            display.style.textShadow = '0 0 20px var(--text-color), 0 0 40px rgba(0, 255, 200, 0.8)';
+            display.style.color = 'var(--color-main)'; // Неоновый зеленый
+            display.style.textShadow = '0 0 30px var(--color-main), 0 0 60px rgba(57, 255, 20, 0.8)';
         }
         
         if (time === 0) {
             clearInterval(timerInterval);
+            timerInterval = null;
             display.textContent = "00:00";
-            // Звуковой сигнал (если нужно, можно добавить <audio> элемент)
             startBtn.disabled = false;
         }
     }
@@ -393,6 +396,7 @@
             } else {
                 clearInterval(timerInterval);
                 timerInterval = null;
+                startBtn.disabled = false;
             }
         }, 1000);
         startBtn.disabled = true;
@@ -419,8 +423,7 @@
     resetBtn.addEventListener('click', resetTimer);
 
     // Инициализация при загрузке
-    updateDisplay();
-    pauseBtn.disabled = true; 
+    updateDisplay(); 
 </script>
 </body>
 </html>
