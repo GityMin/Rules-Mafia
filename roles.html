@@ -7,14 +7,14 @@
         /* === КИБЕРПАНК СТИЛИ (CSS) - ЦИФРОВАЯ МАФИЯ === */
         :root {
             --background-color: #0d0d1a;
-            --text-color: #00ffc8;       /* Ярко-зеленый/бирюзовый */
-            --header-color: #ff007f;     /* Ярко-розовый/фуксия */
-            --accent-color: #00ffff;     /* Голубой акцент */
-            --warning-color: #ffcc00;
+            --text-color: #00ffc8;       
+            --header-color: #ff007f;     
+            --accent-color: #00ffff;     
             --font-family-cyb: 'Share Tech Mono', monospace, Arial, sans-serif;
             --container-bg: #1a0a29;
-            --mafia-color: #ff004c;      /* Киберпанк-красный (Фуксия) */
-            --civilian-color: #00ffcc;   /* Киберпанк-синий/зеленый */
+            --mafia-color: #ff004c;      /* Киберпанк-красный */
+            --civilian-color: #00ffcc;   /* Киберпанк-бирюзовый */
+            --sheriff-color: #ffcc00;    /* Желтый/Оранжевый для Шерифа */
         }
 
         body {
@@ -107,58 +107,96 @@
             box-shadow: 0 0 15px var(--accent-color);
         }
         
-        /* === Стили Ролей === */
-        .role-section {
+        /* === Секции Команд === */
+        .team-section {
             display: flex;
+            flex-direction: column;
             gap: 20px;
-            margin-top: 20px;
-        }
-
-        .team-box {
-            flex: 1;
+            margin-bottom: 40px;
             padding: 20px;
             border: 2px solid;
-            box-shadow: 0 0 10px;
+            background-color: rgba(255, 255, 255, 0.03);
         }
 
-        .red-team {
+        .red-team-section {
             border-color: var(--civilian-color);
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
-            background-color: rgba(0, 255, 204, 0.05);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
         }
 
-        .black-team {
+        .black-team-section {
             border-color: var(--mafia-color);
-            box-shadow: 0 0 15px rgba(255, 0, 76, 0.6);
-            background-color: rgba(255, 0, 76, 0.05);
+            box-shadow: 0 0 20px rgba(255, 0, 76, 0.5);
         }
-
-        .role-title {
-            font-size: 20px;
+        
+        .team-title {
+            font-size: 24px;
             text-transform: uppercase;
             margin-bottom: 10px;
             padding-bottom: 5px;
-            border-bottom: 1px dashed;
+            border-bottom: 2px solid;
+            text-align: center;
         }
-        
-        .role-title.mafia { border-color: var(--mafia-color); color: var(--mafia-color); }
-        .role-title.civilian { border-color: var(--civilian-color); color: var(--civilian-color); }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 15px;
+        /* === Блоки Ролей (Flex layout) === */
+        .roles-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .role-card {
+            flex: 1 1 45%; /* Два элемента в ряд */
+            background-color: var(--container-bg);
+            padding: 15px;
+            border: 1px dashed var(--text-color);
+            min-width: 350px;
         }
         
-        ul li {
+        /* === Стили для Изображений и Заголовков Ролей === */
+        .role-header {
+            text-align: center;
             margin-bottom: 10px;
-            border-left: 2px solid var(--text-color);
-            padding-left: 10px;
+            padding: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 18px;
+            border-bottom: 1px solid;
+        }
+
+        .role-img {
+            width: 80px; 
+            height: 80px; 
+            display: block;
+            margin: 0 auto 10px auto;
+            border-radius: 5px;
+            object-fit: cover;
+            border: 2px solid;
+            transition: transform 0.3s;
         }
         
-        strong {
-            color: #fff;
+        .role-img:hover {
+            transform: scale(1.05);
         }
+
+        /* Цвета для Шерифа */
+        .sheriff-card .role-header { color: var(--sheriff-color); border-color: var(--sheriff-color); }
+        .sheriff-card .role-img { border-color: var(--sheriff-color); box-shadow: 0 0 10px var(--sheriff-color); }
+
+        /* Цвета для Мирного */
+        .civilian-card .role-header { color: var(--civilian-color); border-color: var(--civilian-color); }
+        .civilian-card .role-img { border-color: var(--civilian-color); box-shadow: 0 0 10px var(--civilian-color); }
+
+        /* Цвета для Дона */
+        .don-card .role-header { color: var(--mafia-color); border-color: var(--mafia-color); }
+        .don-card .role-img { border-color: var(--mafia-color); box-shadow: 0 0 10px var(--mafia-color); }
+        
+        /* Цвета для Мафии */
+        .mafia-card .role-header { color: var(--mafia-color); border-color: var(--mafia-color); }
+        .mafia-card .role-img { border-color: var(--mafia-color); box-shadow: 0 0 10px var(--mafia-color); }
+
+        p, ul { font-size: 14px; }
+        strong { color: #fff; }
 
     </style>
 </head>
@@ -169,8 +207,8 @@
     <nav class="top-nav">
         <a href="index.html">ПРАВИЛА (КРАТКО)</a>
         <a href="podrobnye.html">ПРАВИЛА (ПОДРОБНО)</a>
-        <a href="roles.html">РОЛИ</a>
-        <a href="timer.html" class="active">ТАЙМЕР</a>
+        <a href="roles.html" class="active">РОЛИ</a>
+        <a href="timer.html">ТАЙМЕР</a>
         <a href="rating.html">РЕЙТИНГ & АРХИВ</a> 
         <a href="contacts.html">КОНТАКТЫ</a>
     </nav>
@@ -180,39 +218,50 @@
         <p style="color: var(--accent-color); margin-top: 5px;">// ROLE MATRIX // 10 PLAYER CONFIG //</p>
     </div>
 
-    <h2>РАСПРЕДЕЛЕНИЕ КОМАНДЫ (10 ИГРОКОВ)</h2>
-
-    <div class="role-section">
+    <h2>КРАСНАЯ КОМАНДА (МИРНЫЕ)</h2>
+    <div class="team-section red-team-section">
+        <div class="team-title" style="border-color: var(--civilian-color); color: var(--civilian-color);">ЦЕЛЬ: ЗАЩИТА СЕТИ</div>
         
-        <div class="team-box red-team">
-            <h2 style="color: var(--civilian-color); border-color: var(--civilian-color);">КРАСНАЯ КОМАНДА (7 ИГРОКОВ)</h2>
-            <p><strong>Цель:</strong> Вычислить и устранить всех членов Черной Команды до того, как их численность сравняется.</p>
+        <div class="roles-grid">
             
-            <div class="role-title civilian">ШЕРИФ (Sheriff)</div>
-            <p><strong>Функция:</strong> Просыпается ночью и имеет право проверить **одного** игрока на принадлежность к Черной или Красной команде. Ключевой Красный игрок.</p>
+            <div class="role-card sheriff-card">
+                <img src="sheriff.png" alt="Иконка Шерифа" class="role-img">
+                <div class="role-header">ШЕРИФ (SHERIFF)</div>
+                <p>Ключевой Красный игрок. Просыпается ночью и имеет право проверить **одного** игрока на принадлежность к Черной или Красной команде. Должен вычислить Дона.</p>
+            </div>
             
-            <div class="role-title civilian">МИРНЫЙ ЖИТЕЛЬ (Civilian)</div>
-            <p><strong>Функция:</strong> Имеет одну минуту днем для убеждения стола в своей непричастности. Не имеет ночных действий. Побеждает, если побеждает Красная Команда.</p>
-        </div>
-
-        <div class="team-box black-team">
-            <h2 style="color: var(--mafia-color); border-color: var(--mafia-color);">ЧЕРНАЯ КОМАНДА (3 ИГРОКА)</h2>
-            <p><strong>Цель:</strong> Устранить членов Красной Команды, пока их численность не сравняется с численностью Мафии.</p>
+            <div class="role-card civilian-card">
+                <img src="civilian.png" alt="Иконка Мирного Жителя" class="role-img">
+                <div class="role-header">МИРНЫЙ ЖИТЕЛЬ (CIVILIAN)</div>
+                <p>Имеет одну минуту днем для убеждения стола в своей непричастности. Не имеет ночных действий. Побеждает, если вся Черная Команда устранена.</p>
+            </div>
             
-            <div class="role-title mafia">ДОН МАФИИ (Don)</div>
-            <p><strong>Функция:</strong> Глава Мафии. Участвует в ночном "отстреле" (первая ночь — договорка). Последующие ночи просыпается для поиска **Шерифа**.</p>
-
-            <div class="role-title mafia">МАФИЯ (Mafia)</div>
-            <p><strong>Функция:</strong> Участвует в ночном "отстреле". Для успешного убийства **все 3 черных игрока** должны указать одну и ту же цель.</p>
         </div>
     </div>
     
-    <h2 style="margin-top: 60px;">КЛЮЧЕВЫЕ ПРАВИЛА ФАЗ</h2>
-    <ul>
-        <li>**День (Обсуждение):** Игроки убеждают стол. Длительность речи — 60 секунд.</li>
-        <li>**Ночь (Действия):** Все игроки "засыпают". Дон и Шериф имеют по 20 секунд на проверку.</li>
-        <li>**Победа:** Красные побеждают, если все Черные выведены. Черные побеждают, если их число равно или больше числа Красных.</li>
-    </ul>
+    <h2>ЧЕРНАЯ КОМАНДА (МАФИЯ)</h2>
+    <div class="team-section black-team-section">
+        <div class="team-title" style="border-color: var(--mafia-color); color: var(--mafia-color);">ЦЕЛЬ: УСТАНОВЛЕНИЕ КОНТРОЛЯ</div>
+        
+        <div class="roles-grid">
+            
+            <div class="role-card don-card">
+                <img src="don.png" alt="Иконка Дона Мафии" class="role-img">
+                <div class="role-header">ДОН МАФИИ (DON)</div>
+                <p>Глава Черной Команды. Участвует в ночном "отстреле". Каждую ночь, кроме первой, ищет **Шерифа**. Лидер, координирующий действия.</p>
+            </div>
+
+            <div class="role-card mafia-card">
+                <img src="mafia.png" alt="Иконка Мафии" class="role-img">
+                <div class="role-header">МАФИЯ (MAFIA)</div>
+                <p>Участвует в ночном "отстреле". Для успешного устранения, все черные игроки (Дон и Мафия) должны указать одну и ту же цель. Работает в тени.</p>
+            </div>
+            
+        </div>
+    </div>
+    
+    <h2 style="margin-top: 20px;">КЛЮЧЕВЫЕ ПРАВИЛА ИГРЫ</h2>
+    <p>Для более подробной информации о победных условиях и штрафах, перейдите в раздел "Правила (Подробно)".</p>
 
 </div>
 </body>
