@@ -3,161 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legion Mafia - ИГРОВОЙ ТАЙМЕР</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Legion Mafia - Игровой Таймер</title>
     <style>
-/* ... ПОЛНЫЙ CSS-КОД ИЗ ВАШЕГО ШАБЛОНА ... */
-/* ... (Удален для краткости, но полностью включен в файл) ... */
+        /* === ТЕМНЫЙ РЕГЛАМЕНТ (CSS) - ГЛУБОКИЙ КРАСНЫЙ === */
+        :root {
+            --primary: #d32f2f; /* Глубокий красный */
+            --bg: #121212;
+            --surface: #1e1e1e;
+            --text: #e0e0e0;
+            --border: #333;
+            --accent: #ff5252; /* Яркий красный */
+            --menu-bg: #222; /* Фон меню */
+            --timer-bg: #080808; /* Очень темный фон для таймера */
+        }
 
-/* Стили для Таймера, адаптированные под новый дизайн */
-.timer-block {
-    text-align: center;
-    padding: 50px 0;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px dashed var(--neon-blue);
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-    margin-top: 50px;
-}
+        body {
+            font-family: 'Roboto', 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-#timer-display {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 8em;
-    font-weight: 900;
-    margin: 20px 0;
-    /* Изначальный стиль */
-    color: var(--neon-blue);
-    text-shadow: 0 0 20px var(--neon-blue), 0 0 40px rgba(0, 243, 255, 0.8);
-    transition: all 0.5s ease;
-}
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            flex-grow: 1;
+            width: calc(100% - 80px);
+            text-align: center;
+        }
 
-.controls button {
-    background: var(--neon-red);
-    color: var(--bg-color);
-    border: 2px solid var(--neon-red);
-    padding: 15px 30px;
-    margin: 0 15px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2em;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(255, 0, 60, 0.6);
-}
+        /* Навигационное меню */
+        .top-nav {
+            background-color: var(--menu-bg);
+            border-radius: 6px;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            border: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
 
-.controls button:hover:not(:disabled) {
-    background: var(--neon-blue);
-    border-color: var(--neon-blue);
-    color: var(--bg-color);
-    box-shadow: 0 0 20px var(--neon-blue);
-}
+        .top-nav a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 5px 10px;
+            font-weight: bold;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
 
-.controls button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+        .top-nav a:hover {
+            color: var(--primary);
+            background-color: #333;
+        }
 
+        .top-nav a.active {
+            color: #fff;
+            background-color: var(--primary);
+        }
+        
+        /* Логотип и Заголовок */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .logo img {
+            max-width: 200px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(211, 47, 47, 0.3));
+        }
+
+        h1 {
+            font-size: 28px;
+            text-transform: uppercase;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        /* Стили Таймера */
+        .timer-display {
+            font-size: 8rem;
+            font-weight: bold;
+            margin: 50px 0;
+            padding: 20px 40px;
+            border-radius: 12px;
+            background-color: var(--timer-bg);
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 20px rgba(255, 82, 82, 0.3);
+            display: inline-block;
+            transition: all 0.3s;
+            /* Используем моноширинный шрифт для цифрового стиля */
+            font-family: 'Share Tech Mono', monospace; 
+            color: var(--text); 
+            text-shadow: 0 0 20px var(--text), 0 0 40px rgba(224, 224, 224, 0.4);
+        }
+
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .timer-button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s;
+        }
+
+        .timer-button:hover:not(:disabled) {
+            background-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .timer-button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+                width: auto;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+            
+            .timer-display {
+                font-size: 4rem;
+                margin: 30px 0;
+                padding: 15px 30px;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .timer-button {
+                width: 100%;
+            }
+
+            .top-nav {
+                flex-direction: column;
+            }
+            .top-nav a {
+                margin: 5px 0;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-
+    
     <nav class="top-nav">
         <a href="index.html">КРАТКИЕ ПРАВИЛА</a>
         <a href="podrobnye.html">ПОДРОБНЫЕ ПРАВИЛА</a>
         <a href="roles.html">РОЛИ</a>
         <a href="timer.html" class="active">ТАЙМЕР</a>
-        <a href="rating.html">РЕЙТИНГ & АРХИВ</a>
-        <a href="media.html">МЕДИА</a>
+        <a href="rating.html">РЕЙТИНГ</a>
         <a href="contacts.html">КОНТАКТЫ</a>
     </nav>
 
     <div class="header">
-        <div class="logo"><img src="logo.png" alt="Legion Mafia Logo"></div>
-        <h1>DATA: ИГРОВОЙ ТАЙМЕР</h1>
+        <div class="logo"><img src="https://placehold.co/200x50/1e1e1e/d32f2f?text=LEGION+MAFIA" alt="Legion Mafia Logo"></div>
+        <h1>ИГРОВОЙ ТАЙМЕР (1 МИНУТА)</h1>
+        <p style="color: var(--accent);">Таймер предназначен для отсчета минуты на речь каждого игрока.</p>
     </div>
 
-    <div class="timer-block">
-        <div id="timer-display">01:00</div>
-        <div class="controls">
-            <button id="start-btn">Старт (1:00)</button>
-            <button id="pause-btn" disabled>Пауза</button>
-            <button id="reset-btn">Сброс</button>
-        </div>
+    <div class="timer-display" id="timer-display">01:00</div>
+
+    <div class="controls">
+        <button class="timer-button" id="start-btn">СТАРТ</button>
+        <button class="timer-button" id="pause-btn" disabled>ПАУЗА</button>
+        <button class="timer-button" id="reset-btn">СБРОС (1:00)</button>
     </div>
-    
+
     <script>
-        // Исходный JavaScript сохранен
-        const display = document.getElementById('timer-display');
-        const startBtn = document.getElementById('start-btn');
-        const pauseBtn = document.getElementById('pause-btn');
-        const resetBtn = document.getElementById('reset-btn');
+        document.addEventListener('DOMContentLoaded', () => {
+            const display = document.getElementById('timer-display');
+            const startBtn = document.getElementById('start-btn');
+            const pauseBtn = document.getElementById('pause-btn');
+            const resetBtn = document.getElementById('reset-btn');
 
-        let time = 60; // 1 минута по умолчанию
-        let timerInterval;
+            let time = 60; // 1 минута
+            let timerInterval = null;
 
-        function updateDisplay() {
-            const minutes = Math.floor(time / 60);
-            const seconds = time % 60;
-            display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-            // Изменение цвета на неон-красный за последние 10 секунд
-            if (time <= 10 && time > 0) {
-                display.style.color = 'var(--neon-red)';
-                display.style.textShadow = '0 0 20px var(--neon-red), 0 0 40px rgba(255, 0, 60, 0.8)';
-            } else {
-                display.style.color = 'var(--neon-blue)';
-                display.style.textShadow = '0 0 20px var(--neon-blue), 0 0 40px rgba(0, 243, 255, 0.8)';
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                const formattedMinutes = String(minutes).padStart(2, '0');
+                const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+                return `${formattedMinutes}:${formattedSeconds}`;
             }
-            
-            if (time === 0) {
+
+            function updateDisplay() {
+                display.textContent = formatTime(time);
+
+                // Изменение цвета на последние 10 секунд (используем новые переменные)
+                if (time <= 10 && time > 0) {
+                    display.style.color = 'var(--accent)'; // Яркий красный
+                    display.style.textShadow = `0 0 20px var(--accent), 0 0 40px ${'rgba(255, 82, 82, 0.8)'}`;
+                } else {
+                    display.style.color = 'var(--text)'; // Основной текст
+                    display.style.textShadow = `0 0 20px var(--text), 0 0 40px ${'rgba(224, 224, 224, 0.4)'}`;
+                }
+                
+                if (time === 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    display.textContent = "00:00";
+                    // Опционально: Звуковой сигнал
+                    startBtn.disabled = true;
+                    pauseBtn.disabled = true;
+                    setTimeout(() => {
+                        startBtn.disabled = false;
+                        resetBtn.disabled = false;
+                    }, 1000); // Дать секунду, прежде чем разрешить сброс/новый старт
+                }
+            }
+
+            function startTimer() {
+                if (timerInterval) return;
+                timerInterval = setInterval(() => {
+                    if (time > 0) {
+                        time--;
+                        updateDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                    }
+                }, 1000);
+                startBtn.disabled = true;
+                pauseBtn.disabled = false;
+            }
+
+            function pauseTimer() {
                 clearInterval(timerInterval);
-                display.textContent = "00:00";
+                timerInterval = null;
                 startBtn.disabled = false;
                 pauseBtn.disabled = true;
             }
-        }
 
-        function startTimer() {
-            if (timerInterval) return;
-            timerInterval = setInterval(() => {
-                if (time > 0) {
-                    time--;
-                    updateDisplay();
-                } else {
-                    clearInterval(timerInterval);
-                    timerInterval = null;
-                }
-            }, 1000);
-            startBtn.disabled = true;
-            pauseBtn.disabled = false;
-        }
+            function resetTimer() {
+                pauseTimer();
+                time = 60;
+                updateDisplay();
+                startBtn.disabled = false;
+                pauseBtn.disabled = true;
+            }
 
-        function pauseTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            startBtn.disabled = false;
-            pauseBtn.disabled = true;
-        }
+            startBtn.addEventListener('click', startTimer);
+            pauseBtn.addEventListener('click', pauseTimer);
+            resetBtn.addEventListener('click', resetTimer);
 
-        function resetTimer() {
-            pauseTimer();
-            time = 60;
+            // Инициализация при загрузке
             updateDisplay();
-            startBtn.disabled = false;
             pauseBtn.disabled = true;
-        }
-
-        startBtn.addEventListener('click', startTimer);
-        pauseBtn.addEventListener('click', pauseTimer);
-        resetBtn.addEventListener('click', resetTimer);
-
-        updateDisplay(); // Инициализация дисплея при загрузке
+        });
     </script>
-    
-    <div class="footer-sign">
-        by baby_twix 1 and baby_twix 2💘
-    </div>
+
 </div>
+
+<footer>
+    by baby_twix 1 and baby_twix 2💘
+</footer>
+
 </body>
 </html>
