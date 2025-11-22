@@ -7,14 +7,14 @@
         /* === КИБЕРПАНК СТИЛИ (CSS) - ЦИФРОВАЯ МАФИЯ === */
         :root {
             --background-color: #0d0d1a;
-            --text-color: #FFD7D7;       /* Светлый розовато-красный */
-            --header-color: #E30B5C;     /* Глубокий красный/Кримсон (главный акцент) */
-            --accent-color: #FF4500;     /* Огненно-красный/Вермильон (вторичный акцент) */
+            --text-color: #00ffc8;       
+            --header-color: #ff007f;     
+            --accent-color: #00ffff;     
             --font-family-cyb: 'Share Tech Mono', monospace, Arial, sans-serif;
-            --container-bg: #2C1111;
-            --mafia-color: #E30B5C;      /* Глубокий красный для Мафии */
-            --civilian-color: #FFD7D7;   /* Светлый/розоватый для Мирных */
-            --sheriff-color: #FFCC00;    /* Желтый/Оранжевый для Шерифа (сохраняем контраст) */
+            --container-bg: #1a0a29;
+            --mafia-color: #ff004c;      /* Киберпанк-красный */
+            --civilian-color: #00ffcc;   /* Киберпанк-бирюзовый */
+            --sheriff-color: #ffcc00;    /* Желтый/Оранжевый для Шерифа */
         }
 
         body {
@@ -30,220 +30,130 @@
         }
 
         .container {
-            max-width: 1100px;
+            width: 90vw;
+            max-width: 900px;
             margin: 40px auto;
             padding: 40px 20px;
             background-color: var(--container-bg);
             border: 2px solid var(--accent-color);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
             border-radius: 8px;
         }
-        
-        h1, h2 {
-            color: var(--header-color);
-            text-shadow: 0 0 5px var(--header-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
-            margin-top: 30px;
-            text-align: center;
-        }
 
-        /* Навигация вверху */
-        .nav-bar {
-            background-color: #000000;
-            padding: 15px 0;
+        h1 {
+            color: var(--header-color);
             text-align: center;
+            text-transform: uppercase;
             border-bottom: 2px solid var(--header-color);
-        }
-
-        .nav-link {
-            color: var(--text-color);
-            text-decoration: none;
-            margin: 0 15px;
-            padding: 8px 15px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--header-color);
-            border-color: var(--accent-color);
-            background-color: rgba(227, 11, 92, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
         }
         
-        .active-link {
-            border-color: var(--header-color);
-            color: var(--header-color);
-            font-weight: bold;
+        h2 {
+            color: var(--accent-color);
+            text-transform: uppercase;
+            margin-top: 40px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+            margin-bottom: 20px;
         }
-        
-        /* Секция Команды */
+
         .team-section {
-            padding: 20px 0;
+            padding: 20px;
+            border: 1px dashed var(--text-color);
+            border-radius: 6px;
             margin-bottom: 30px;
         }
-        
-        .team-title {
-            font-size: 1.5em;
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 2px solid;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        
-        /* Стили для Черной Команды */
-        .black-team-section .team-title {
-            color: var(--mafia-color);
-            border-color: var(--mafia-color);
-            box-shadow: 0 0 10px var(--mafia-color);
-        }
 
-        /* Стили для Красной Команды */
-        .red-team-section .team-title {
-            color: var(--civilian-color);
+        .white-team-section {
             border-color: var(--civilian-color);
-            box-shadow: 0 0 10px var(--civilian-color);
         }
 
-        /* Карточки Ролей */
+        .black-team-section {
+            border-color: var(--mafia-color);
+        }
+
+        .team-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-bottom: 3px double;
+            text-transform: uppercase;
+        }
+
         .roles-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 10px;
+            gap: 20px;
         }
 
         .role-card {
-            background-color: var(--background-color);
+            background-color: rgba(0, 0, 0, 0.3);
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 6px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            border: 1px solid var(--border, #424242);
         }
-        
+
         .role-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5);
         }
-        
+
         .role-header {
-            font-size: 1.3em;
+            font-size: 1.1em;
             font-weight: bold;
             margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px dashed;
+            text-transform: uppercase;
         }
 
         .role-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
             float: right;
-            width: 50px;
-            height: 50px;
             margin-left: 15px;
-            border-radius: 50%;
             border: 2px solid;
-            object-fit: cover;
-        }
-
-        /* Стили для конкретных ролей */
-        .don-card .role-header, .mafia-card .role-header {
-            color: var(--mafia-color);
-            border-bottom-color: var(--mafia-color);
-        }
-        .don-card:hover, .mafia-card:hover {
-            box-shadow: 0 0 15px var(--mafia-color);
-        }
-        .don-card .role-img, .mafia-card .role-img {
-            border-color: var(--mafia-color);
-        }
-
-        .sheriff-card .role-header {
-            color: var(--sheriff-color);
-            border-bottom-color: var(--sheriff-color);
-        }
-        .sheriff-card:hover {
-            box-shadow: 0 0 15px var(--sheriff-color);
-        }
-        .sheriff-card .role-img {
-            border-color: var(--sheriff-color);
-        }
-
-        .doctor-card .role-header {
-            color: var(--accent-color);
-            border-bottom-color: var(--accent-color);
-        }
-        .doctor-card:hover {
-            box-shadow: 0 0 15px var(--accent-color);
-        }
-        .doctor-card .role-img {
-            border-color: var(--accent-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px;
         }
         
-        .civilian-card .role-header {
-            color: var(--civilian-color);
-            border-bottom-color: var(--civilian-color);
-        }
-        .civilian-card:hover {
-            box-shadow: 0 0 15px var(--civilian-color);
-        }
-        .civilian-card .role-img {
-            border-color: var(--civilian-color);
-        }
+        /* Цвета обводки для картинок */
+        .sheriff-card .role-img { border-color: var(--sheriff-color); box-shadow: 0 0 10px var(--sheriff-color); }
+        .civilian-card .role-img { border-color: var(--civilian-color); box-shadow: 0 0 10px var(--civilian-color); }
+        .don-card .role-img { border-color: var(--mafia-color); box-shadow: 0 0 10px var(--mafia-color); }
+        .mafia-card .role-img { border-color: var(--mafia-color); box-shadow: 0 0 10px var(--mafia-color); }
 
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px 10px;
-                padding: 20px;
-            }
-            .nav-link {
-                display: block;
-                margin: 5px 10px;
-            }
-            .roles-grid {
-                grid-template-columns: 1fr;
-            }
+        .role-card p {
+            font-size: 0.9em;
+            color: var(--text-color);
         }
-
     </style>
 </head>
 <body>
-    <div class="nav-bar">
-        <a href="index.html" class="nav-link">Краткие Правила</a>
-        <a href="podrobnye.html" class="nav-link">Подробные Правила</a>
-        <a href="roles.html" class="nav-link active-link">Роли</a>
-        <a href="rating.html" class="nav-link">Рейтинг & Архив</a>
-        <a href="timer.html" class="nav-link">Таймер</a>
-        <a href="contacts.html" class="nav-link">Контакты</a>
-    </div>
-
     <div class="container">
-        <h1>КЛАССИЧЕСКИЕ РОЛИ В МАФИИ (CYBERPUNK EDITION)</h1>
-        <p>Описание ролей и их цели в игре. Игровой процесс строится на противостоянии Черной и Красной команд.</p>
-
+        <h1>Игровые Роли: "Цифровая Мафия"</h1>
+        
         <h2>КРАСНАЯ КОМАНДА (МИРНЫЕ)</h2>
-        <div class="team-section red-team-section">
-            <div class="team-title" style="border-color: var(--civilian-color); color: var(--civilian-color);">ЦЕЛЬ: УСТРАНЕНИЕ ЧЕРНОЙ УГРОЗЫ</div>
-
+        <div class="team-section white-team-section">
+            <div class="team-title" style="border-color: var(--civilian-color); color: var(--civilian-color);">ЦЕЛЬ: ПОЛНОЕ УСТРАНЕНИЕ МАФИИ</div>
+            
             <div class="roles-grid">
-
+                
                 <div class="role-card sheriff-card">
+                    <!-- Шериф: sheriff.png -->
                     <img src="img/sheriff.png" alt="Иконка Шерифа" class="role-img">
-                    <div class="role-header">ШЕРИФ (SHERIFF)</div>
-                    <p>Ключевая роль Красной Команды. Каждую ночь, начиная с первой, проверяет любого игрока. На утро объявляет результат проверки (если жив). Обязан координировать действия Красной Команды.</p>
+                    <div class="role-header" style="color: var(--sheriff-color);">ШЕРИФ (SHERIFF)</div>
+                    <p>Единственный игрок в Красной Команде, проверяющий роль игрока ночью. Каждую ночь, кроме первой, может проверить одного игрока. Побеждает, если вся Черная Команда устранена.</p>
                 </div>
-
-                <div class="role-card doctor-card">
-                    <img src="img/doctor.png" alt="Иконка Доктора" class="role-img">
-                    <div class="role-header">ДОКТОР (DOCTOR)</div>
-                    <p>Имеет право одну ночь спасти любого игрока, включая себя, от выстрела Мафии. Не может спасать одного и того же игрока две ночи подряд. Его спасение анонимно.</p>
-                </div>
-
+                
                 <div class="role-card civilian-card">
+                    <!-- Мирный: civilian.png -->
                     <img src="img/civilian.png" alt="Иконка Мирного Жителя" class="role-img">
-                    <div class="role-header">МИРНЫЙ ЖИТЕЛЬ (CIVILIAN)</div>
+                    <div class="role-header" style="color: var(--civilian-color);">МИРНЫЙ ЖИТЕЛЬ (CIVILIAN)</div>
                     <p>Имеет одну минуту днем для убеждения стола в своей непричастности. Не имеет ночных действий. Побеждает, если вся Черная Команда устранена.</p>
                 </div>
                 
@@ -257,15 +167,17 @@
             <div class="roles-grid">
                 
                 <div class="role-card don-card">
+                    <!-- Дон: don.png -->
                     <img src="img/don.png" alt="Иконка Дона Мафии" class="role-img">
-                    <div class="role-header">ДОН МАФИИ (DON)</div>
+                    <div class="role-header" style="color: var(--mafia-color);">ДОН МАФИИ (DON)</div>
                     <p>Глава Черной Команды. Участвует в ночном "отстреле". Каждую ночь, кроме первой, ищет **Шерифа**. Лидер, координирующий действия.</p>
                 </div>
 
                 <div class="role-card mafia-card">
+                    <!-- Мафия: mafia.png -->
                     <img src="img/mafia.png" alt="Иконка Мафии" class="role-img">
-                    <div class="role-header">МАФИЯ (MAFIA)</div>
-                    <p>Участвует в ночном "отстреле". Для успешного устранения, все черные игроки (Дон и Мафия) должны указать одну и ту же цель. Работает в тени.</p>
+                    <div class="role-header" style="color: var(--mafia-color);">МАФИЯ (MAFIA)</div>
+                    <p>Участвует в ночном "отстреле". Для успешного устранения, все черные игроки (Дон и Мафия) должны указать одну и ту же цель. Работает в тесном взаимодействии с Доном.</p>
                 </div>
             </div>
         </div>
