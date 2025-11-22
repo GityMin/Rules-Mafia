@@ -4,110 +4,287 @@
     <meta charset="UTF-8">
     <title>Legion Mafia - Игровые Роли</title>
     <style>
-        /* === КИБЕРПАНК СТИЛИ (CSS) - ЦИФРОВАЯ МАФИЯ === */
+        /* ========================================= */
+        /* === СТИЛЬ "Y2K / FUTURISTIC GLITCH" === */
+        /* ========================================= */
+        
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
         :root {
-            --background-color: #0d0d1a;
-            --text-color: #00ffc8;       
-            --header-color: #ff007f;     
-            --accent-color: #00ffff;     
-            --font-family-cyb: 'Share Tech Mono', monospace, Arial, sans-serif;
-            --container-bg: #1a0a29;
-            --mafia-color: #ff004c;      /* Киберпанк-красный */
-            --civilian-color: #00ffcc;   /* Киберпанк-бирюзовый */
-            --sheriff-color: #ffcc00;    /* Желтый/Оранжевый для Шерифа */
+            --color-main: #39FF14;      /* Неоновый зеленый (Main Glow) */
+            --color-accent: #00FFFF;    /* Кибер-голубой */
+            --color-background: #0A0A1F; /* Очень темный фон */
+            --color-dark: #1F1F3D;      /* Темный контейнер */
+            --color-error: #FF3333;     /* Глитч-красный */
+            --font-header: 'Orbitron', sans-serif;
+            --font-body: 'Share Tech Mono', monospace;
+            
+            /* СОХРАНЕННЫЕ ЦВЕТА ДЛЯ РОЛЕЙ */
+            --mafia-color: #ff004c;      /* Киберпанк-красный (для Дона и Мафии) */
+            --civilian-color: #00ffcc;   /* Киберпанк-бирюзовый (для Мирного) */
+            --sheriff-color: #ffcc00;    /* Желтый/Оранжевый (для Шерифа) */
         }
 
+        /* === ОБЩИЕ СТИЛИ И ФОН === */
         body {
-            font-family: var(--font-family-cyb);
-            background-color: var(--background-color);
-            color: var(--text-color);
+            font-family: var(--font-body);
+            background-color: var(--color-background);
+            color: var(--color-main);
             line-height: 1.6;
             padding: 0;
             margin: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden; /* Защита от горизонтального скролла из-за глитча */
         }
 
         .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 40px 20px;
-            background-color: var(--container-bg);
-            border: 2px solid var(--accent-color);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 50px 30px;
+            background-color: var(--color-dark);
+            border: 2px solid var(--color-accent);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5), inset 0 0 15px rgba(0, 255, 255, 0.3);
+            position: relative;
+            z-index: 10;
             flex-grow: 1;
+            transition: transform 0.3s ease;
         }
-        
-        /* === Шапка/Логотип === */
-        .header {
-            text-align: center;
-            border-bottom: 2px dashed var(--header-color);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+
+        /* === ЗАГОЛОВКИ И ГЛИТЧ-ЭФФЕКТ === */
+        h1, h2 {
+            font-family: var(--font-header);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            color: var(--color-main);
+            text-shadow: 0 0 5px var(--color-main);
         }
 
         h1 {
-            font-size: 28px;
-            text-transform: uppercase;
-            color: var(--header-color);
-            text-shadow: 0 0 10px rgba(255, 0, 127, 0.8);
-            letter-spacing: 3px;
-            margin: 0;
+            font-size: 38px;
+            border-bottom: 3px solid var(--color-error);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
         }
 
-        /* === Заголовки Контента === */
         h2 {
-            color: var(--accent-color);
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
-            border-left: 5px solid var(--header-color);
-            background-color: rgba(255, 0, 127, 0.05);
+            font-size: 24px;
+            color: var(--color-accent);
+            text-shadow: 0 0 8px var(--color-accent);
+            border-left: 5px solid var(--color-main);
             padding: 10px 15px;
             margin-top: 40px;
-            font-size: 22px;
-            text-transform: uppercase;
         }
-        
-        /* === Навигация (Меню) === */
+
+        /* АНИМАЦИЯ ГЛИТЧА ДЛЯ ЗАГОЛОВКОВ */
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-shadow: 0 0 5px var(--color-main);
+            background: var(--color-dark);
+            clip: rect(0, 900px, 0, 0);
+        }
+
+        .glitch-text:hover::before {
+            text-shadow: 2px 0 var(--color-error);
+            clip: rect(44px, 900px, 56px, 0);
+            animation: glitch-anim 0.8s infinite alternate-reverse;
+        }
+
+        .glitch-text:hover::after {
+            text-shadow: -2px 0 var(--color-accent);
+            clip: rect(80px, 900px, 92px, 0);
+            animation: glitch-anim 0.7s infinite alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(20px, 900px, 30px, 0); transform: skew(0.5deg); }
+            25% { clip: rect(60px, 900px, 70px, 0); transform: skew(-0.5deg); }
+            50% { clip: rect(80px, 900px, 90px, 0); transform: skew(1deg); }
+            75% { clip: rect(10px, 900px, 20px, 0); transform: skew(-1deg); }
+            100% { clip: rect(40px, 900px, 50px, 0); transform: skew(0.5deg); }
+        }
+
+        /* === СТАНДАРТНАЯ НАВИГАЦИЯ (ОСНОВНОЕ МЕНЮ) === */
         .top-nav {
             display: flex;
             justify-content: center;
-            background-color: #2c0e3e; 
-            border-bottom: 3px solid var(--accent-color);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            background-color: var(--color-dark); 
+            border: 2px solid var(--color-main);
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
             padding: 10px 0;
-            flex-wrap: wrap; 
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
         .top-nav a {
             background-color: transparent;
-            color: var(--text-color);
-            border: 1px solid var(--text-color);
-            padding: 8px 12px;
-            margin: 5px 5px;
+            color: var(--color-main);
+            border: 1px solid var(--color-main);
+            padding: 10px 18px;
+            margin: 5px;
             text-decoration: none;
             text-transform: uppercase;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 0 5px rgba(0, 255, 200, 0.5);
+            box-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
             letter-spacing: 1px;
+            position: relative;
         }
 
         .top-nav a:hover {
-            background-color: var(--header-color);
-            color: var(--background-color);
-            border-color: var(--header-color);
-            box-shadow: 0 0 15px var(--header-color);
+            background-color: var(--color-accent);
+            color: var(--color-background);
+            border-color: var(--color-accent);
+            box-shadow: 0 0 20px var(--color-accent);
+            transform: translateY(-2px);
         }
 
         .top-nav a.active {
-            background-color: var(--accent-color);
-            color: var(--background-color);
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px var(--accent-color);
+            background-color: var(--color-error);
+            color: var(--color-background);
+            border-color: var(--color-error);
+            box-shadow: 0 0 20px var(--color-error);
+        }
+
+        /* === МЕДИА-КНОПКИ (СУПЕР-КРУТЫЕ ССЫЛКИ) === */
+        .media-links {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .media-btn {
+            font-family: var(--font-header);
+            padding: 15px 30px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .media-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            z-index: 1;
+            transform: skewX(-20deg);
+        }
+
+        .media-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Специфические стили для каждой кнопки */
+        .discord-btn {
+            background-color: #5865F2; /* Discord Blue */
+            color: white;
+            box-shadow: 0 0 20px #5865F2;
+        }
+        .youtube-btn {
+            background-color: #FF0000; /* YouTube Red */
+            color: white;
+            box-shadow: 0 0 20px #FF0000;
+        }
+        .telegram-btn {
+            background-color: #0088CC; /* Telegram Blue */
+            color: white;
+            box-shadow: 0 0 20px #0088CC;
+        }
+
+        /* Текст и контент */
+        .content-list li {
+            margin-bottom: 15px;
+            border-left: 3px solid var(--color-accent);
+            padding-left: 15px;
+            transition: all 0.3s;
+        }
+
+        .content-list li:hover {
+            background-color: rgba(57, 255, 20, 0.05);
+            border-left-color: var(--color-main);
+        }
+
+        /* === ОБНОВЛЕНИЕ ДЛЯ ФОРМ И ТАБЛИЦ === */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border: 2px solid var(--color-main);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
+        }
+
+        th, td {
+            border: 1px dashed var(--color-accent);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--color-dark);
+            color: var(--color-error);
+            text-transform: uppercase;
+            font-family: var(--font-header);
+            text-shadow: 0 0 5px var(--color-error);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(57, 255, 20, 0.05);
         }
         
-        /* === Секции Команд === */
+        .footer-note {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--color-accent);
+            font-size: 12px;
+            color: var(--color-accent);
+        }
+
+        /* === СТИЛЬ ТАЙМЕРА === */
+        .timer-zone {
+            background-color: var(--color-background);
+            border: 4px solid var(--color-main);
+            box-shadow: 0 0 40px var(--color-main);
+        }
+        #display {
+            font-family: var(--font-header);
+            color: var(--color-main);
+            text-shadow: 0 0 30px var(--color-main), 0 0 60px rgba(57, 255, 20, 0.8);
+        }
+        .control-buttons button {
+            border-radius: 5px;
+            transform: perspective(1px) translateZ(0); /* 3D hover prep */
+            box-shadow: 0 0 10px var(--color-accent);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .control-buttons button:hover {
+            transform: scale(1.05) translateY(-3px);
+        }
+        
+        /* === СОХРАНЕННЫЕ СТИЛИ ДЛЯ РОЛЕЙ === */
+
         .team-section {
             display: flex;
             flex-direction: column;
@@ -147,9 +324,9 @@
 
         .role-card {
             flex: 1 1 45%; 
-            background-color: var(--container-bg);
+            background-color: var(--color-dark);
             padding: 15px;
-            border: 1px dashed var(--text-color);
+            border: 1px dashed var(--color-main);
             min-width: 350px;
         }
         
@@ -162,6 +339,7 @@
             text-transform: uppercase;
             font-size: 18px;
             border-bottom: 1px solid;
+            font-family: var(--font-header);
         }
 
         .role-img {
@@ -180,19 +358,19 @@
         }
 
         /* Цвета для Шерифа */
-        .sheriff-card .role-header { color: var(--sheriff-color); border-color: var(--sheriff-color); }
+        .sheriff-card .role-header { color: var(--sheriff-color); border-color: var(--sheriff-color); text-shadow: 0 0 5px var(--sheriff-color); }
         .sheriff-card .role-img { border-color: var(--sheriff-color); box-shadow: 0 0 10px var(--sheriff-color); }
 
         /* Цвета для Мирного */
-        .civilian-card .role-header { color: var(--civilian-color); border-color: var(--civilian-color); }
+        .civilian-card .role-header { color: var(--civilian-color); border-color: var(--civilian-color); text-shadow: 0 0 5px var(--civilian-color); }
         .civilian-card .role-img { border-color: var(--civilian-color); box-shadow: 0 0 10px var(--civilian-color); }
 
         /* Цвета для Дона */
-        .don-card .role-header { color: var(--mafia-color); border-color: var(--mafia-color); }
+        .don-card .role-header { color: var(--mafia-color); border-color: var(--mafia-color); text-shadow: 0 0 5px var(--mafia-color); }
         .don-card .role-img { border-color: var(--mafia-color); box-shadow: 0 0 10px var(--mafia-color); }
         
         /* Цвета для Мафии */
-        .mafia-card .role-header { color: var(--mafia-color); border-color: var(--mafia-color); }
+        .mafia-card .role-header { color: var(--mafia-color); border-color: var(--mafia-color); text-shadow: 0 0 5px var(--mafia-color); }
         .mafia-card .role-img { border-color: var(--mafia-color); box-shadow: 0 0 10px var(--mafia-color); }
 
         p, ul { font-size: 14px; }
@@ -213,9 +391,9 @@
         <a href="contacts.html">КОНТАКТЫ</a>
     </nav>
     
-    <div class="header">
-        <h1 style="font-size: 36px;">СИСТЕМА РАСПРЕДЕЛЕНИЯ РОЛЕЙ</h1>
-        <p style="color: var(--accent-color); margin-top: 5px;">// ROLE MATRIX // 10 PLAYER CONFIG //</p>
+    <div class="header" style="text-align: center;">
+        <h1 class="glitch-text" data-text="СИСТЕМА РАСПРЕДЕЛЕНИЯ РОЛЕЙ">СИСТЕМА РАСПРЕДЕЛЕНИЯ РОЛЕЙ</h1>
+        <p style="color: var(--color-accent); margin-top: -20px; font-size: 14px;">// ROLE MATRIX // 10 PLAYER CONFIG //</p>
     </div>
 
     <h2>КРАСНАЯ КОМАНДА (МИРНЫЕ)</h2>
@@ -262,6 +440,10 @@
     
     <h2 style="margin-top: 20px;">КЛЮЧЕВЫЕ ПРАВИЛА ИГРЫ</h2>
     <p>Для более подробной информации о победных условиях и штрафах, перейдите в раздел "Правила (Подробно)".</p>
+
+    <div class="footer-note">
+        // LEGION MAFIA DATA PACKET V2.0 // ALL RIGHTS RESERVED 2024 //
+    </div>
 
 </div>
 </body>
