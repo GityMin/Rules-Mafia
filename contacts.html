@@ -2,18 +2,17 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legion Mafia - Контакты</title>
     <style>
         /* === КИБЕРПАНК СТИЛИ (CSS) - ЦИФРОВАЯ МАФИЯ === */
         :root {
             --background-color: #0d0d1a;
-            --text-color: #00ffc8;
-            --header-color: #ff007f;
-            --accent-color: #00ffff;
+            --text-color: #FFD7D7;
+            --header-color: #E30B5C;
+            --accent-color: #FF4500;
             --warning-color: #ffcc00;
             --font-family-cyb: 'Share Tech Mono', monospace, Arial, sans-serif;
-            --container-bg: #1a0a29;
+            --container-bg: #2C1111;
             --border: #424242;
         }
 
@@ -30,157 +29,159 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 40px auto;
             padding: 40px 20px;
             background-color: var(--container-bg);
             border: 2px solid var(--accent-color);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-            border-radius: 12px;
-            flex-grow: 1;
-            width: 90%; /* Адаптивная ширина */
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.5);
+            border-radius: 8px;
+        }
+        
+        /* Заголовки */
+        h1, h2 {
+            color: var(--header-color);
+            text-shadow: 0 0 5px var(--header-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 30px;
         }
 
-        h1 {
+        /* Списки контактов */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        ul li {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 3px solid var(--accent-color);
+            background-color: rgba(255, 69, 0, 0.05);
+            transition: background-color 0.3s;
+        }
+        
+        ul li:hover {
+            background-color: rgba(227, 11, 92, 0.1);
+        }
+
+        /* Ссылки */
+        a.contact-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        a.contact-link:hover {
             color: var(--header-color);
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
             text-shadow: 0 0 5px var(--header-color);
         }
 
-        p {
-            margin-bottom: 20px;
-            text-align: center;
+        /* Блок предупреждения */
+        .warning-block {
+            border: 2px dashed var(--warning-color);
+            padding: 15px;
+            margin-top: 30px;
+            background-color: rgba(255, 204, 0, 0.05);
+            color: var(--warning-color);
+            border-radius: 5px;
         }
 
-        /* === СТИЛИ ДЛЯ КНОПОК СОЦИАЛЬНЫХ СЕТЕЙ === */
-
-        .button-container {
-            display: flex;
-            flex-direction: column; /* По умолчанию вертикально для мобильных */
-            gap: 20px;
-            margin-top: 40px;
-            padding: 20px 0;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @media (min-width: 768px) {
-            .button-container {
-                flex-direction: row; /* Горизонтально для десктопа */
-            }
-        }
-
-        .cyber-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px 25px;
-            background-color: var(--container-bg);
-            border: 3px solid var(--accent-color);
-            color: var(--text-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 0 10px rgba(0, 255, 200, 0.5);
-            width: 250px; /* Фиксированная ширина для единообразия */
-            max-width: 90%;
-        }
-
-        .cyber-button svg {
-            margin-right: 12px;
-            width: 24px;
-            height: 24px;
-            fill: currentColor; /* Использует цвет текста */
-            transition: transform 0.3s;
+        .warning-block strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
         }
         
-        /* Эффект при наведении */
-        .cyber-button:hover {
-            box-shadow: 0 0 20px var(--header-color), 0 0 40px var(--header-color);
-            transform: translateY(-3px) scale(1.02);
-        }
-        .cyber-button:hover svg {
-            transform: scale(1.1);
-        }
-
-        /* Специфические стили и цвета */
-        .youtube-btn {
-            border-color: #ff0000;
-            color: #ff0000;
-        }
-        .youtube-btn:hover {
-            background-color: #ff0000;
-            color: white;
-            border-color: white;
+        /* Навигация вверху */
+        .nav-bar {
+            background-color: #000000;
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--header-color);
         }
 
-        .discord-btn {
-            border-color: #5865F2;
-            color: #5865F2;
-        }
-        .discord-btn:hover {
-            background-color: #5865F2;
-            color: white;
-            border-color: white;
-        }
-
-        .telegram-btn {
-            border-color: #0088CC;
-            color: #0088CC;
-        }
-        .telegram-btn:hover {
-            background-color: #0088CC;
-            color: white;
-            border-color: white;
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
 
+        .nav-link:hover {
+            color: var(--header-color);
+            border-color: var(--accent-color);
+            background-color: rgba(227, 11, 92, 0.1);
+        }
+        
+        .active-link {
+            border-color: var(--header-color);
+            color: var(--header-color);
+            font-weight: bold;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px 10px;
+                padding: 20px;
+            }
+            .nav-link {
+                display: block;
+                margin: 5px 10px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Связь с Нами</h1>
-
-        <p>Присоединяйтесь к нашему сообществу в социальных сетях, чтобы быть в курсе последних новостей, анонсов игр и обсуждений!</p>
-
-        <div class="button-container">
-
-            <!-- Кнопка YouTube -->
-            <a href="https://www.youtube.com/@LegionMafia2024" target="_blank" class="cyber-button youtube-btn">
-                <!-- YouTube Icon SVG -->
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M23.495 6.205a3.02 3.02 0 0 0-2.12-2.12C19.79 3.5 12 3.5 12 3.5s-7.79-.005-9.375.585a3.02 3.02 0 0 0-2.12 2.12C.5 7.79.5 12 .5 12s.005 4.21.585 5.795a3.02 3.02 0 0 0 2.12 2.12C4.21 20.5 12 20.5 12 20.5s7.79.005 9.375-.585a3.02 3.02 0 0 0 2.12-2.12C23.5 16.21 23.5 12 23.5 12s0-4.21-.505-5.795zM9.545 15.599V8.401L15.82 12l-6.275 3.599z"/>
-                </svg>
-                YouTube
-            </a>
-
-            <!-- Кнопка Discord -->
-            <a href="https://discord.com/invite/PqMKKZukXh" target="_blank" class="cyber-button discord-btn">
-                <!-- Discord Icon SVG -->
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.22 3.5C22.38 5.67 22.38 9.07 22.28 12.37c-.1 3.2-1.28 6.4-3.35 8.47-2.07 2.07-5.27 3.25-8.47 3.35-3.3.1-6.7-.1-8.87-2.26-2.07-2.07-3.25-5.27-3.35-8.47-.1-3.3.1-6.7 2.26-8.87C3.79 1.34 7.23 0 12 0c4.77 0 8.21 1.34 10.22 3.5zM7.5 16.5c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm9 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM12 9c-3.1 0-5.4 1.8-5.7 1.8-.7.2-1.3.9-1.3 1.7v.5c0 .3.2.5.5.5h1.2c.3 0 .5-.2.5-.5v-.3c.4-.2 1.4-.7 4.3-.7 2.9 0 3.9.5 4.3.7v.3c0 .3.2.5.5.5h1.2c.3 0 .5-.2.5-.5v-.5c0-.8-.6-1.5-1.3-1.7-.3 0-5.7-1.8-5.7-1.8z"/>
-                </svg>
-                Discord
-            </a>
-
-            <!-- Кнопка Telegram -->
-            <a href="https://t.me/mafia_legion" target="_blank" class="cyber-button telegram-btn">
-                <!-- Telegram Icon SVG -->
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.5 7.5L10 14V9.5H8.5V15c0 .41.33.75.75.75H10L16.5 10v.5h-1.5V16c0 .41.33.75.75.75H17c.41 0 .75-.34.75-.75v-6.5c0-.41-.34-.75-.75-.75z"/>
-                </svg>
-                Telegram
-            </a>
-
-        </div>
-
+    <div class="nav-bar">
+        <a href="index.html" class="nav-link">Краткие Правила</a>
+        <a href="podrobnye.html" class="nav-link">Подробные Правила</a>
+        <a href="roles.html" class="nav-link">Роли</a>
+        <a href="rating.html" class="nav-link">Рейтинг & Архив</a>
+        <a href="timer.html" class="nav-link">Таймер</a>
+        <a href="contacts.html" class="nav-link active-link">Контакты</a>
     </div>
 
+    <div class="container">
+        <h1>Связь с Администрацией Клуба Legion Mafia</h1>
+        <p>Мы на связи, чтобы обеспечить лучший игровой опыт. Не стесняйтесь обращаться по любым вопросам.</p>
+
+        <h2>Служба Поддержки и Администрация</h2>
+        <p>Для записи на игры, решения спорных ситуаций, вопросов по рейтингу или сотрудничеству используйте следующие каналы связи:</p>
+
+        <ul>
+            <li>
+                <strong>Администратор (Запись на Игры)</strong><br>
+                <a href="mailto:admin@legionmafia.com" class="contact-link">admin@legionmafia.com</a> | Telegram: <span style="color: var(--header-color);">@LegionMafia_Game</span>
+            </li>
+            <li>
+                <strong>Судейский Состав (Технические вопросы, ППК)</strong><br>
+                <a href="mailto:judges@legionmafia.com" class="contact-link">judges@legionmafia.com</a>
+            </li>
+            <li>
+                <strong>Основной Канал Discord/Telegram</strong><br>
+                <!-- Использование header-color для подчеркивания ссылки, чтобы она соответствовала новому стилю -->
+                <a href="#" class="contact-link" style="color: var(--header-color); text-decoration: underline;">Присоединиться к нашему Discord-серверу</a>
+            </li>
+        </ul>
+
+        <h2>Информация о Клубе</h2>
+        <p>Мы открыты для сотрудничества и готовы ответить на любые ваши вопросы.</p>
+        <p>Наш клуб оперирует в онлайн-формате, что позволяет нам объединять игроков со всего мира.</p>
+        
+        <div class="warning-block">
+            <strong style="color: var(--warning-color);">ВАЖНОЕ ПРИМЕЧАНИЕ</strong>
+            <p>Техническая поддержка по рейтингу и правилам доступна ежедневно с 12:00 до 22:00 (EET).</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 50px; font-size: 14px; color: var(--text-color);">
+            by baby_twix 1 and baby_twix 2, 2025
+        </div>
+    </div>
 </body>
 </html>
